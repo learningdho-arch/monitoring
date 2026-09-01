@@ -3,112 +3,286 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SERYU TC Monitoring V3</title>
+<title>SERYU TC Monitoring</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
-
-html,body{
-  margin:0;
-  padding:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f5f7fb;
-  color:#172033;
-}
-
-button,input,select,textarea{
-  font:inherit;
-}
+*{box-sizing:border-box}
 
 :root{
+  --bg:#f4f6f8;
+  --card:#fff;
+  --text:#172033;
+  --muted:#7b8495;
+  --line:#e7eaf0;
   --primary:#2563eb;
-  --primary-dark:#1d4ed8;
+  --primary2:#1d4ed8;
   --success:#16a34a;
-  --danger:#dc2626;
   --warning:#d97706;
-  --muted:#64748b;
-  --border:#e2e8f0;
-  --card:#ffffff;
-  --sidebar:#0f172a;
+  --danger:#dc2626;
+  --dark:#111827;
+  --shadow:0 8px 25px rgba(15,23,42,.06);
+  --radius:16px;
 }
 
-.hidden{
-  display:none!important;
+body{
+  margin:0;
+  font-family:Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
 
-/* =====================================================
-   LOGIN
-===================================================== */
+button,input,select,textarea{font:inherit}
+.hidden{display:none!important}
 
-#loginPage{
+.login-page{
   min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
   padding:20px;
-  background:linear-gradient(135deg,#0f172a,#1e40af);
+  background:
+    radial-gradient(circle at top right,#dbeafe,transparent 35%),
+    var(--bg);
 }
 
 .login-box{
   width:100%;
-  max-width:390px;
-  background:#fff;
-  border-radius:18px;
-  padding:30px;
-  box-shadow:0 25px 70px rgba(0,0,0,.25);
+  max-width:400px;
+  background:white;
+  padding:34px;
+  border-radius:24px;
+  box-shadow:0 20px 60px rgba(15,23,42,.12);
 }
 
 .logo{
-  width:55px;
-  height:55px;
+  width:52px;
+  height:52px;
   border-radius:15px;
   background:var(--primary);
   color:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:21px;
-  font-weight:bold;
-  margin-bottom:18px;
+  font-size:22px;
+  font-weight:800;
+  margin-bottom:20px;
 }
 
-.login-box h1{
-  margin:0 0 6px;
-  font-size:24px;
+.login-title{
+  font-size:25px;
+  font-weight:800;
+  margin-bottom:5px;
 }
 
-.login-box p{
-  margin:0 0 25px;
+.login-sub{
   color:var(--muted);
+  margin-bottom:25px;
+}
+
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+.sidebar{
+  width:235px;
+  background:#111827;
+  color:white;
+  padding:22px 15px;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  z-index:20;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:8px 10px 25px;
+}
+
+.brand-icon{
+  width:38px;
+  height:38px;
+  background:var(--primary);
+  border-radius:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+}
+
+.brand-name{
+  font-size:15px;
+  font-weight:800;
+}
+
+.brand-small{
+  font-size:10px;
+  color:#9ca3af;
+  margin-top:2px;
+}
+
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.nav button{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:#9ca3af;
+  padding:12px;
+  border-radius:10px;
+  text-align:left;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.nav button:hover,
+.nav button.active{
+  background:#1f2937;
+  color:#fff;
+}
+
+.user-box{
+  position:absolute;
+  left:15px;
+  right:15px;
+  bottom:18px;
+  padding:12px;
+  border-top:1px solid #293241;
+}
+
+.user-name{
   font-size:13px;
+  font-weight:700;
 }
 
-/* =====================================================
-   FORM
-===================================================== */
-
-.form-group{
-  margin-bottom:14px;
+.user-role{
+  color:#9ca3af;
+  font-size:11px;
+  margin-top:3px;
 }
 
-.form-group label{
+.logout{
+  margin-top:10px;
+  width:100%;
+  border:1px solid #374151;
+  background:transparent;
+  color:#d1d5db;
+  border-radius:9px;
+  padding:8px;
+  cursor:pointer;
+}
+
+.main{
+  margin-left:235px;
+  width:calc(100% - 235px);
+  min-height:100vh;
+}
+
+.topbar{
+  height:70px;
+  background:white;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+}
+
+.page-title{
+  font-size:20px;
+  font-weight:800;
+}
+
+.page-sub{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.content{
+  padding:25px 28px 40px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+.card-head{
+  padding:18px 20px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.card-title{
+  font-weight:800;
+}
+
+.card-body{
+  padding:20px;
+}
+
+.grid{
+  display:grid;
+  gap:15px;
+}
+
+.grid-5{grid-template-columns:repeat(5,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+
+.stat{
+  padding:19px;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:600;
+}
+
+.stat-value{
+  font-size:28px;
+  font-weight:800;
+  margin-top:8px;
+}
+
+.stat-foot{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:5px;
+}
+
+label{
   display:block;
   font-size:12px;
-  font-weight:bold;
-  margin-bottom:6px;
+  font-weight:700;
+  margin-bottom:7px;
+  color:#4b5563;
 }
 
 input,
 select,
 textarea{
   width:100%;
-  border:1px solid var(--border);
+  border:1px solid #dfe3ea;
   border-radius:9px;
-  padding:10px 11px;
+  padding:11px 12px;
   outline:none;
-  background:#fff;
+  background:white;
 }
 
 input:focus,
@@ -119,334 +293,62 @@ textarea:focus{
 }
 
 textarea{
-  min-height:85px;
+  min-height:95px;
   resize:vertical;
 }
-
-/* =====================================================
-   BUTTON
-===================================================== */
 
 .btn{
   border:0;
   border-radius:9px;
-  padding:10px 14px;
+  padding:11px 16px;
   cursor:pointer;
-  font-weight:bold;
-  font-size:12px;
+  font-weight:700;
 }
 
 .btn-primary{
   background:var(--primary);
-  color:#fff;
+  color:white;
 }
 
 .btn-primary:hover{
-  background:var(--primary-dark);
-}
-
-.btn-success{
-  background:var(--success);
-  color:#fff;
-}
-
-.btn-danger{
-  background:var(--danger);
-  color:#fff;
+  background:var(--primary2);
 }
 
 .btn-light{
-  background:#f1f5f9;
-  color:#334155;
+  background:#f3f4f6;
+  color:#374151;
 }
 
-.btn-block{
-  width:100%;
+.btn-danger{
+  background:#fee2e2;
+  color:#991b1b;
 }
 
-.btn:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
+.full{width:100%}
 
-/* =====================================================
-   APP
-===================================================== */
+.mt{margin-top:18px}
+.mb{margin-bottom:18px}
 
-#app{
-  min-height:100vh;
+.row{
   display:flex;
-}
-
-.sidebar{
-  width:225px;
-  position:fixed;
-  left:0;
-  top:0;
-  bottom:0;
-  background:var(--sidebar);
-  color:#fff;
-  padding:18px 13px;
-  z-index:20;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
   gap:10px;
-  padding:5px 8px 24px;
-}
-
-.brand-icon{
-  width:40px;
-  height:40px;
-  border-radius:11px;
-  background:var(--primary);
-  display:flex;
   align-items:center;
-  justify-content:center;
-  font-weight:bold;
 }
 
-.brand-text strong{
-  display:block;
-  font-size:14px;
-}
-
-.brand-text span{
-  display:block;
-  font-size:10px;
-  color:#94a3b8;
-  margin-top:2px;
-}
-
-.nav-title{
-  color:#64748b;
-  font-size:9px;
-  font-weight:bold;
-  margin:10px;
-  text-transform:uppercase;
-}
-
-.nav-btn{
-  width:100%;
-  background:transparent;
-  color:#cbd5e1;
-  border:0;
-  text-align:left;
-  padding:11px;
-  border-radius:8px;
-  cursor:pointer;
-  margin-bottom:3px;
-  font-size:12px;
-}
-
-.nav-btn:hover,
-.nav-btn.active{
-  background:#1e293b;
-  color:#fff;
-}
-
-.user-box{
-  position:absolute;
-  left:13px;
-  right:13px;
-  bottom:12px;
-  border-top:1px solid #263244;
-  padding:12px 7px;
-}
-
-.user-name{
-  font-size:12px;
-  font-weight:bold;
-}
-
-.user-role{
-  font-size:10px;
-  color:#94a3b8;
-  margin-top:3px;
-}
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-.main{
-  margin-left:225px;
-  width:calc(100% - 225px);
-}
-
-.topbar{
-  height:60px;
-  background:#fff;
-  border-bottom:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 22px;
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-
-.topbar h2{
-  margin:0;
-  font-size:17px;
-}
-
-.topbar-right{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.connection{
-  font-size:10px;
-  color:var(--success);
-  background:#dcfce7;
-  padding:5px 8px;
-  border-radius:20px;
-}
-
-.content{
-  padding:20px;
-  max-width:1500px;
-}
-
-/* =====================================================
-   PAGE
-===================================================== */
-
-.page{
-  display:none;
-}
-
-.page.active{
-  display:block;
-}
-
-.page-head{
+.spread{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:18px;
-}
-
-.page-head h2{
-  margin:0;
-  font-size:21px;
-}
-
-.page-head p{
-  margin:4px 0 0;
-  color:var(--muted);
-  font-size:12px;
-}
-
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:13px;
-  padding:16px;
-  margin-bottom:16px;
-}
-
-.card-title{
-  font-size:14px;
-  font-weight:bold;
-  margin-bottom:13px;
-}
-
-/* =====================================================
-   STATS
-===================================================== */
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:12px;
-  margin-bottom:18px;
-}
-
-.stat{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:15px;
-}
-
-.stat-label{
-  font-size:10px;
-  color:var(--muted);
-}
-
-.stat-value{
-  font-size:25px;
-  font-weight:bold;
-  margin-top:7px;
-}
-
-.stat-blue{
-  border-left:4px solid var(--primary);
-}
-
-.stat-green{
-  border-left:4px solid var(--success);
-}
-
-.stat-red{
-  border-left:4px solid var(--danger);
-}
-
-.stat-orange{
-  border-left:4px solid var(--warning);
-}
-
-/* =====================================================
-   GRID
-===================================================== */
-
-.grid-2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-}
-
-.grid-3{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
   gap:12px;
 }
-
-.grid-4{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-}
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-.search-row{
-  display:flex;
-  gap:8px;
-}
-
-.search-row input{
-  flex:1;
-}
-
-/* =====================================================
-   BADGE
-===================================================== */
 
 .badge{
-  display:inline-block;
-  padding:4px 8px;
-  border-radius:20px;
+  display:inline-flex;
+  align-items:center;
+  padding:5px 9px;
+  border-radius:999px;
   font-size:10px;
-  font-weight:bold;
+  font-weight:800;
   white-space:nowrap;
 }
 
@@ -465,359 +367,370 @@ textarea{
   color:#b91c1c;
 }
 
-.badge-orange{
-  background:#ffedd5;
-  color:#c2410c;
+.badge-yellow{
+  background:#fef3c7;
+  color:#b45309;
 }
 
 .badge-gray{
-  background:#f1f5f9;
-  color:#475569;
+  background:#f3f4f6;
+  color:#6b7280;
 }
 
-/* =====================================================
-   TRIP HEADER
-===================================================== */
+.search-box{
+  display:flex;
+  gap:10px;
+}
+
+.search-box input{
+  flex:1;
+}
+
+.search-result{
+  margin-top:18px;
+}
 
 .trip-header{
   display:flex;
   justify-content:space-between;
   align-items:flex-start;
-  gap:20px;
+  gap:15px;
 }
 
 .awb{
   font-size:22px;
-  font-weight:bold;
+  font-weight:900;
 }
 
 .route{
-  margin-top:7px;
+  margin-top:6px;
   font-size:13px;
-  color:#475569;
+  color:#4b5563;
 }
 
-.trip-badges{
-  display:flex;
-  gap:6px;
-  flex-wrap:wrap;
-}
-
-/* =====================================================
-   INFO
-===================================================== */
-
-.info-grid{
+.detail-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:10px;
+  border-top:1px solid var(--line);
+  margin-top:20px;
 }
 
-.info-item{
-  background:#f8fafc;
-  border-radius:9px;
-  padding:10px;
+.detail{
+  padding:14px 12px;
+  border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line);
 }
 
-.info-label{
-  font-size:9px;
+.detail-label{
+  font-size:10px;
+  color:var(--muted);
   text-transform:uppercase;
-  color:#94a3b8;
-  margin-bottom:4px;
+  font-weight:700;
 }
 
-.info-value{
-  font-size:12px;
-  font-weight:bold;
+.detail-value{
+  font-size:13px;
+  font-weight:700;
+  margin-top:5px;
   word-break:break-word;
 }
 
-/* =====================================================
-   TIMELINE
-===================================================== */
-
 .timeline{
   position:relative;
-  padding-left:32px;
+  padding:8px 0 5px 12px;
 }
 
 .timeline:before{
   content:"";
   position:absolute;
-  left:8px;
-  top:4px;
-  bottom:5px;
+  left:23px;
+  top:18px;
+  bottom:18px;
   width:2px;
-  background:#dbe3ee;
+  background:#e5e7eb;
 }
 
 .timeline-item{
   position:relative;
-  padding-bottom:20px;
-}
-
-.timeline-item:last-child{
-  padding-bottom:0;
+  display:flex;
+  gap:15px;
+  padding:10px 0 18px;
 }
 
 .timeline-dot{
-  position:absolute;
-  left:-30px;
-  top:1px;
-  width:18px;
-  height:18px;
+  position:relative;
+  z-index:2;
+  width:24px;
+  min-width:24px;
+  height:24px;
   border-radius:50%;
-  background:var(--primary);
-  border:4px solid #dbeafe;
+  background:white;
+  border:3px solid var(--primary);
 }
 
 .timeline-item.issue .timeline-dot{
-  background:var(--danger);
-  border-color:#fee2e2;
+  border-color:var(--danger);
 }
 
-.timeline-item.delivery .timeline-dot{
-  background:var(--success);
-  border-color:#dcfce7;
+.timeline-item.done .timeline-dot{
+  border-color:var(--success);
+}
+
+.timeline-content{
+  flex:1;
+  background:#f8fafc;
+  border:1px solid var(--line);
+  border-radius:11px;
+  padding:12px;
+}
+
+.timeline-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
 }
 
 .timeline-title{
+  font-weight:800;
   font-size:13px;
-  font-weight:bold;
 }
 
 .timeline-time{
-  font-size:10px;
   color:var(--muted);
-  margin-top:3px;
-}
-
-.timeline-desc{
-  margin-top:6px;
-  background:#f8fafc;
-  border-radius:7px;
-  padding:8px;
   font-size:11px;
 }
 
-.timeline-photo{
+.timeline-text{
   margin-top:7px;
-  max-width:170px;
-  max-height:115px;
-  border-radius:8px;
-  object-fit:cover;
+  font-size:12px;
+  color:#4b5563;
 }
 
-/* =====================================================
-   TABLE
-===================================================== */
+.timeline-photo{
+  margin-top:10px;
+  width:180px;
+  max-width:100%;
+  max-height:150px;
+  border-radius:8px;
+  object-fit:cover;
+  cursor:pointer;
+}
 
 .table-wrap{
   overflow:auto;
-  border:1px solid var(--border);
-  border-radius:9px;
 }
 
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:850px;
-}
-
-th,
-td{
-  padding:9px 10px;
-  border-bottom:1px solid var(--border);
-  text-align:left;
-  font-size:11px;
+  min-width:800px;
 }
 
 th{
-  background:#f8fafc;
-  color:#475569;
-  font-size:9px;
+  text-align:left;
+  font-size:10px;
+  color:var(--muted);
   text-transform:uppercase;
+  background:#f8fafc;
+  padding:11px;
+  border-bottom:1px solid var(--line);
+}
+
+td{
+  padding:12px 11px;
+  font-size:12px;
+  border-bottom:1px solid var(--line);
 }
 
 tr:hover td{
-  background:#f8fafc;
+  background:#fafafa;
 }
 
-/* =====================================================
-   UPDATE
-===================================================== */
+.clickable{
+  cursor:pointer;
+}
 
-.upload-box{
-  border:2px dashed #cbd5e1;
-  border-radius:10px;
-  padding:15px;
-  text-align:center;
-  background:#f8fafc;
+.clickable:hover{
+  color:var(--primary);
 }
 
 .photo-preview{
-  max-width:170px;
-  max-height:130px;
-  border-radius:9px;
-  margin-top:8px;
-}
-
-/* =====================================================
-   EMPTY
-===================================================== */
-
-.empty{
-  padding:25px;
-  text-align:center;
-  color:#64748b;
-  font-size:12px;
-}
-
-/* =====================================================
-   TOAST
-===================================================== */
-
-#toast{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  z-index:100;
-  min-width:240px;
-  max-width:360px;
-  background:#0f172a;
-  color:#fff;
-  padding:12px 15px;
-  border-radius:9px;
-  display:none;
-  font-size:12px;
-  box-shadow:0 10px 30px rgba(0,0,0,.2);
-}
-
-#toast.show{
-  display:block;
-}
-
-/* =====================================================
-   LOADING
-===================================================== */
-
-#loading{
-  position:fixed;
-  inset:0;
-  background:rgba(255,255,255,.65);
-  z-index:90;
-  display:none;
+  width:100%;
+  min-height:140px;
+  border:2px dashed #d7dce5;
+  border-radius:12px;
+  display:flex;
   align-items:center;
   justify-content:center;
+  overflow:hidden;
+  color:var(--muted);
+  font-size:12px;
 }
 
-.loader-box{
-  background:#fff;
-  padding:20px;
-  border-radius:12px;
-  box-shadow:0 10px 30px rgba(0,0,0,.12);
+.photo-preview img{
+  max-width:100%;
+  max-height:240px;
+  object-fit:contain;
+}
+
+.alert{
+  padding:11px 13px;
+  border-radius:9px;
+  font-size:12px;
+  margin-bottom:15px;
+}
+
+.alert-error{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.alert-success{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.loading{
   text-align:center;
+  padding:35px;
+  color:var(--muted);
 }
 
-.loader{
-  width:32px;
-  height:32px;
-  border:4px solid #dbeafe;
+.spinner{
+  width:25px;
+  height:25px;
+  border:3px solid #e5e7eb;
   border-top-color:var(--primary);
   border-radius:50%;
   animation:spin .7s linear infinite;
-  margin:auto;
-}
-
-.loader-text{
-  font-size:11px;
-  color:#64748b;
-  margin-top:9px;
+  margin:0 auto 10px;
 }
 
 @keyframes spin{
-  to{
-    transform:rotate(360deg);
-  }
+  to{transform:rotate(360deg)}
 }
 
-/* =====================================================
-   MOBILE
-===================================================== */
+.empty{
+  padding:35px;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+}
 
-@media(max-width:1050px){
+.section-gap{
+  margin-top:20px;
+}
 
-  .stats{
-    grid-template-columns:repeat(2,1fr);
+.trip-mini{
+  padding:14px;
+  background:#f8fafc;
+  border:1px solid var(--line);
+  border-radius:10px;
+}
+
+.trip-mini-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:12px;
+}
+
+.mini-label{
+  font-size:10px;
+  color:var(--muted);
+  font-weight:700;
+}
+
+.mini-value{
+  font-size:12px;
+  font-weight:800;
+  margin-top:3px;
+}
+
+@media(max-width:1100px){
+
+  .grid-5{
+    grid-template-columns:repeat(3,1fr);
   }
 
-  .info-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .grid-3,
-  .grid-4{
-    grid-template-columns:1fr 1fr;
+  .detail-grid{
+    grid-template-columns:repeat(3,1fr);
   }
 
 }
 
-@media(max-width:700px){
+@media(max-width:900px){
 
   .sidebar{
-    width:62px;
-    padding:12px 7px;
+    width:65px;
+    padding:15px 8px;
   }
 
-  .brand-text,
-  .nav-title,
-  .nav-btn span,
+  .brand-name,
+  .brand-small,
+  .nav button span,
   .user-box{
     display:none;
   }
 
   .brand{
     justify-content:center;
+    padding-bottom:20px;
   }
 
-  .nav-btn{
+  .nav button{
     text-align:center;
-    padding:11px 4px;
+    font-size:18px;
   }
 
   .main{
-    margin-left:62px;
-    width:calc(100% - 62px);
+    margin-left:65px;
+    width:calc(100% - 65px);
   }
 
+  .grid-5,
+  .grid-4,
+  .grid-3{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .detail-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:600px){
+
   .content{
-    padding:12px;
+    padding:15px;
   }
 
   .topbar{
-    padding:0 12px;
+    padding:0 15px;
   }
 
-  .connection{
-    display:none;
-  }
-
-  .stats,
-  .grid-2,
-  .grid-3,
+  .grid-5,
   .grid-4,
-  .info-grid{
+  .grid-3,
+  .grid-2{
     grid-template-columns:1fr;
   }
 
-  .trip-header,
-  .page-head{
+  .trip-header{
     flex-direction:column;
-    align-items:flex-start;
   }
 
-  .search-row{
+  .detail-grid{
+    grid-template-columns:1fr;
+  }
+
+  .search-box{
     flex-direction:column;
+  }
+
+  .trip-mini-grid{
+    grid-template-columns:1fr;
   }
 
 }
@@ -827,57 +740,57 @@ tr:hover td{
 <body>
 
 <!-- =====================================================
-     LOGIN
+LOGIN
 ===================================================== -->
 
-<div id="loginPage">
+<div id="loginPage" class="login-page">
 
   <div class="login-box">
 
     <div class="logo">TC</div>
 
-    <h1>SERYU TC Monitoring</h1>
+    <div class="login-title">
+      SERYU TC Monitoring
+    </div>
 
-    <p>
+    <div class="login-sub">
       Logistics Control Tower
-    </p>
+    </div>
 
-    <form id="loginForm">
+    <div id="loginAlert"></div>
 
-      <div class="form-group">
+    <div class="mb">
 
-        <label>Username</label>
+      <label>Username</label>
 
-        <input
-          id="username"
-          autocomplete="username"
-          placeholder="Masukkan username"
-          required>
+      <input
+        id="username"
+        type="text"
+        placeholder="Masukkan username"
+        autocomplete="username">
 
-      </div>
+    </div>
 
-      <div class="form-group">
+    <div class="mb">
 
-        <label>Password</label>
+      <label>Password</label>
 
-        <input
-          id="password"
-          type="password"
-          autocomplete="current-password"
-          placeholder="Masukkan password"
-          required>
+      <input
+        id="password"
+        type="password"
+        placeholder="Masukkan password"
+        autocomplete="current-password">
 
-      </div>
+    </div>
 
-      <button
-        class="btn btn-primary btn-block"
-        type="submit">
+    <button
+      id="loginButton"
+      class="btn btn-primary full"
+      onclick="login()">
 
-        Login
+      Masuk ke Monitoring
 
-      </button>
-
-    </form>
+    </button>
 
   </div>
 
@@ -885,10 +798,10 @@ tr:hover td{
 
 
 <!-- =====================================================
-     APPLICATION
+APP
 ===================================================== -->
 
-<div id="app" class="hidden">
+<div id="app" class="app hidden">
 
   <aside class="sidebar">
 
@@ -898,87 +811,79 @@ tr:hover td{
         TC
       </div>
 
-      <div class="brand-text">
+      <div>
 
-        <strong>SERYU TC</strong>
+        <div class="brand-name">
+          SERYU Monitoring
+        </div>
 
-        <span>
-          Monitoring V3
-        </span>
+        <div class="brand-small">
+          Logistics Control Tower
+        </div>
 
       </div>
 
     </div>
 
 
-    <div class="nav-title">
-      Menu
+    <div class="nav">
+
+      <button
+        class="active"
+        onclick="showPage('dashboard',this)">
+
+        📊 <span>Dashboard</span>
+
+      </button>
+
+      <button
+        onclick="showPage('tracking',this)">
+
+        🔎 <span>Tracking AWB</span>
+
+      </button>
+
+      <button
+        onclick="showPage('live',this)">
+
+        🚚 <span>Live Trips</span>
+
+      </button>
+
+      <button
+        onclick="showPage('update',this)">
+
+        📝 <span>Update Monitoring</span>
+
+      </button>
+
+      <button
+        onclick="showPage('report',this)">
+
+        📈 <span>Report</span>
+
+      </button>
+
     </div>
-
-
-    <button
-      class="nav-btn active"
-      data-page="dashboard">
-
-      📊
-      <span>Dashboard</span>
-
-    </button>
-
-
-    <button
-      class="nav-btn"
-      data-page="live">
-
-      🚚
-      <span>Live Trips</span>
-
-    </button>
-
-
-    <button
-      class="nav-btn"
-      data-page="search">
-
-      🔎
-      <span>Search AWB</span>
-
-    </button>
-
-
-    <button
-      class="nav-btn"
-      data-page="update">
-
-      📝
-      <span>Update Monitoring</span>
-
-    </button>
-
-
-    <button
-      class="nav-btn"
-      data-page="report">
-
-      📈
-      <span>Report</span>
-
-    </button>
 
 
     <div class="user-box">
 
-      <div
-        class="user-name"
-        id="sideUserName">
+      <div id="userName" class="user-name">
         -
       </div>
 
-      <div
-        class="user-role"
-        id="sideUserRole">
+      <div id="userRole" class="user-role">
         -
       </div>
+
+      <button
+        class="logout"
+        onclick="logout()">
+
+        Logout
+
+      </button>
 
     </div>
 
@@ -989,36 +894,20 @@ tr:hover td{
 
     <header class="topbar">
 
-      <h2 id="pageTitle">
-        Dashboard
-      </h2>
+      <div>
 
-      <div class="topbar-right">
-
-        <div
-          id="connectionStatus"
-          class="connection">
-
-          ● Connected
-
+        <div id="pageTitle" class="page-title">
+          Dashboard
         </div>
 
-        <button
-          class="btn btn-light"
-          onclick="refreshCurrentPage()">
+        <div id="pageSub" class="page-sub">
+          Monitoring operational trip
+        </div>
 
-          ↻ Refresh
+      </div>
 
-        </button>
-
-        <button
-          class="btn btn-danger"
-          onclick="logout()">
-
-          Logout
-
-        </button>
-
+      <div id="clock" class="page-sub">
+        -
       </div>
 
     </header>
@@ -1027,610 +916,854 @@ tr:hover td{
     <div class="content">
 
 
-      <!-- =================================================
-           DASHBOARD
-      ================================================== -->
+<!-- =====================================================
+DASHBOARD
+===================================================== -->
 
-      <section
-        id="page-dashboard"
-        class="page active">
+<section id="page-dashboard" class="page">
 
-        <div class="page-head">
+  <div id="dashboardLoading" class="loading">
 
-          <div>
+    <div class="spinner"></div>
 
-            <h2>
-              Dashboard
-            </h2>
+    Memuat dashboard...
 
-            <p>
-              Monitoring kondisi trip dari DB Master.
-            </p>
+  </div>
 
+
+  <div id="dashboardContent" class="hidden">
+
+    <div class="grid grid-5">
+
+      <div class="card stat">
+
+        <div class="stat-label">
+          TOTAL TRIP
+        </div>
+
+        <div id="statTotal" class="stat-value">
+          0
+        </div>
+
+        <div class="stat-foot">
+          Semua trip
+        </div>
+
+      </div>
+
+
+      <div class="card stat">
+
+        <div class="stat-label">
+          ON TRIP
+        </div>
+
+        <div id="statOnTrip" class="stat-value">
+          0
+        </div>
+
+        <div class="stat-foot">
+          Sedang berjalan
+        </div>
+
+      </div>
+
+
+      <div class="card stat">
+
+        <div class="stat-label">
+          DELIVERED
+        </div>
+
+        <div id="statDelivered" class="stat-value">
+          0
+        </div>
+
+        <div class="stat-foot">
+          Selesai
+        </div>
+
+      </div>
+
+
+      <div class="card stat">
+
+        <div class="stat-label">
+          DELAY
+        </div>
+
+        <div id="statDelay" class="stat-value">
+          0
+        </div>
+
+        <div class="stat-foot">
+          SLA Late
+        </div>
+
+      </div>
+
+
+      <div class="card stat">
+
+        <div class="stat-label">
+          ON TIME
+        </div>
+
+        <div id="statOnTime" class="stat-value">
+          0
+        </div>
+
+        <div class="stat-foot">
+          Performance
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="grid grid-2 mt">
+
+      <div class="card">
+
+        <div class="card-head">
+
+          <div class="card-title">
+            Performance SLA
           </div>
 
         </div>
 
+        <div class="card-body">
 
-        <div class="stats">
+          <div class="grid grid-2">
 
-          <div class="stat stat-blue">
+            <div class="stat">
 
-            <div class="stat-label">
-              TOTAL TRIP
+              <div class="stat-label">
+                ON TIME
+              </div>
+
+              <div
+                id="dashOnTime"
+                class="stat-value">
+
+                0
+
+              </div>
+
             </div>
 
-            <div
-              class="stat-value"
-              id="statTotal">
-              0
-            </div>
 
-          </div>
+            <div class="stat">
 
+              <div class="stat-label">
+                LATE
+              </div>
 
-          <div class="stat stat-blue">
+              <div
+                id="dashLate"
+                class="stat-value">
 
-            <div class="stat-label">
-              ON TRIP
-            </div>
+                0
 
-            <div
-              class="stat-value"
-              id="statOnTrip">
-              0
-            </div>
-
-          </div>
-
-
-          <div class="stat stat-green">
-
-            <div class="stat-label">
-              DELIVERED
-            </div>
-
-            <div
-              class="stat-value"
-              id="statDelivered">
-              0
-            </div>
-
-          </div>
-
-
-          <div class="stat stat-red">
-
-            <div class="stat-label">
-              LATE
-            </div>
-
-            <div
-              class="stat-value"
-              id="statLate">
-              0
-            </div>
-
-          </div>
-
-
-          <div class="stat stat-orange">
-
-            <div class="stat-label">
-              ON TIME
-            </div>
-
-            <div
-              class="stat-value"
-              id="statOnTime">
-              0
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="grid-2">
-
-          <div class="card">
-
-            <div class="card-title">
-              Project Summary
-            </div>
-
-            <div id="projectSummary">
-
-              <div class="empty">
-                Loading...
               </div>
 
             </div>
 
           </div>
 
+        </div>
 
-          <div class="card">
+      </div>
 
-            <div class="card-title">
-              Quick Search
-            </div>
 
-            <div class="search-row">
+      <div class="card">
 
-              <input
-                id="quickAWB"
-                placeholder="Masukkan Nomor AWB">
+        <div class="card-head">
 
-              <button
-                class="btn btn-primary"
-                onclick="quickSearch()">
-
-                Search
-
-              </button>
-
-            </div>
-
-            <div
-              style="
-              margin-top:12px;
-              color:#64748b;
-              font-size:11px">
-
-              Cari AWB untuk melihat detail,
-              timeline dan history monitoring.
-
-            </div>
-
+          <div class="card-title">
+            Trip Status
           </div>
 
         </div>
 
-      </section>
+        <div class="card-body">
 
+          <div class="grid grid-2">
 
-      <!-- =================================================
-           LIVE
-      ================================================== -->
-
-      <section
-        id="page-live"
-        class="page">
-
-        <div class="page-head">
-
-          <div>
-
-            <h2>
-              Live Trips
-            </h2>
-
-            <p>
-              Monitoring trip aktif dan selesai.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="grid-4">
-
-            <select id="filterProject">
-
-              <option value="">
-                Semua Project
-              </option>
-
-            </select>
-
-
-            <select id="filterType">
-
-              <option value="">
-                Semua Type Trip
-              </option>
-
-              <option value="ONE WAY">
-                ONE WAY
-              </option>
-
-              <option value="ROUND TRIP">
-                ROUND TRIP
-              </option>
-
-            </select>
-
-
-            <select id="filterStatus">
-
-              <option value="">
-                Semua Status
-              </option>
-
-              <option value="ON TRIP">
+            <div>
+              <span class="badge badge-green">
                 ON TRIP
-              </option>
+              </span>
 
-              <option value="DELIVERED">
+              <strong id="dashTrip">
+                0
+              </strong>
+            </div>
+
+            <div>
+              <span class="badge badge-blue">
                 DELIVERED
-              </option>
+              </span>
 
-              <option value="NOT STARTED">
+              <strong id="dashDelivered">
+                0
+              </strong>
+            </div>
+
+            <div>
+              <span class="badge badge-gray">
                 NOT STARTED
+              </span>
+
+              <strong id="dashNotStarted">
+                0
+              </strong>
+            </div>
+
+            <div>
+              <span class="badge badge-red">
+                DELAY
+              </span>
+
+              <strong id="dashDelay">
+                0
+              </strong>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card mt">
+
+      <div class="card-head">
+
+        <div class="card-title">
+          Project Summary
+        </div>
+
+      </div>
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Project</th>
+              <th>Total</th>
+              <th>On Trip</th>
+              <th>Delivered</th>
+              <th>Late</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="projectSummary"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+TRACKING
+===================================================== -->
+
+<section id="page-tracking" class="page hidden">
+
+  <div class="card">
+
+    <div class="card-head">
+
+      <div>
+
+        <div class="card-title">
+          Tracking AWB
+        </div>
+
+        <div class="page-sub">
+          Cari detail trip dan timeline monitoring
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card-body">
+
+      <div class="search-box">
+
+        <input
+          id="trackingAWB"
+          placeholder="Masukkan Nomor AWB...">
+
+        <button
+          class="btn btn-primary"
+          onclick="searchAWB()">
+
+          Search
+
+        </button>
+
+      </div>
+
+
+      <div
+        id="trackingResult"
+        class="search-result">
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+LIVE TRIPS
+===================================================== -->
+
+<section id="page-live" class="page hidden">
+
+  <div class="card">
+
+    <div class="card-head">
+
+      <div>
+
+        <div class="card-title">
+          Live Trips
+        </div>
+
+        <div class="page-sub">
+          Daftar trip berdasarkan DB_Master
+        </div>
+
+      </div>
+
+      <button
+        class="btn btn-light"
+        onclick="loadLiveTrips()">
+
+        Refresh
+
+      </button>
+
+    </div>
+
+
+    <div class="card-body">
+
+      <div class="grid grid-4 mb">
+
+        <div>
+
+          <label>
+            Project
+          </label>
+
+          <select id="filterProject">
+
+            <option value="">
+              Semua Project
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Type Trip
+          </label>
+
+          <select id="filterType">
+
+            <option value="">
+              Semua
+            </option>
+
+            <option>
+              ONE WAY
+            </option>
+
+            <option>
+              ROUND TRIP
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Status
+          </label>
+
+          <select id="filterStatus">
+
+            <option value="">
+              Semua
+            </option>
+
+            <option>
+              ON TRIP
+            </option>
+
+            <option>
+              DELIVERED
+            </option>
+
+            <option>
+              NOT STARTED
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Search
+          </label>
+
+          <input
+            id="filterSearch"
+            placeholder="AWB / Nopol / Route">
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="btn btn-primary mb"
+        onclick="loadLiveTrips()">
+
+        Terapkan Filter
+
+      </button>
+
+
+      <div
+        id="liveLoading"
+        class="loading hidden">
+
+        <div class="spinner"></div>
+
+        Memuat trip...
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>AWB</th>
+              <th>Project</th>
+              <th>Route</th>
+              <th>Type</th>
+              <th>Nopol</th>
+              <th>Status</th>
+              <th>SLA</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="liveTable"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+UPDATE MONITORING
+===================================================== -->
+
+<section id="page-update" class="page hidden">
+
+  <div class="grid grid-2">
+
+
+    <div class="card">
+
+      <div class="card-head">
+
+        <div>
+
+          <div class="card-title">
+            Update Monitoring
+          </div>
+
+          <div class="page-sub">
+            Input update perjalanan
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="card-body">
+
+        <div id="updateAlert"></div>
+
+
+        <div class="mb">
+
+          <label>
+            Nomor AWB *
+          </label>
+
+          <div class="row">
+
+            <input
+              id="updateAWB"
+              placeholder="Nomor AWB">
+
+            <button
+              class="btn btn-light"
+              onclick="loadUpdateAWB()">
+
+              Cek
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          id="updateTripInfo"
+          class="hidden">
+
+          <div class="trip-mini mb">
+
+            <div id="updateTripText"></div>
+
+          </div>
+
+        </div>
+
+
+        <div class="grid grid-2">
+
+          <div>
+
+            <label>
+              Jam Update
+            </label>
+
+            <input
+              id="jamUpdate"
+              type="datetime-local">
+
+          </div>
+
+
+          <div>
+
+            <label>
+              Kendala
+            </label>
+
+            <select id="kendala">
+
+              <option value="">
+                Tidak ada kendala
               </option>
 
             </select>
 
-
-            <input
-              id="liveSearch"
-              placeholder="AWB / Nopol / Project">
-
           </div>
 
+        </div>
 
-          <div style="margin-top:10px">
 
-            <button
-              class="btn btn-primary"
-              onclick="loadLiveTrips()">
+        <div class="mt">
 
-              Terapkan Filter
+          <label>
+            Keterangan
+          </label>
 
-            </button>
+          <textarea
+            id="keterangan"
+            placeholder="Tulis update / kondisi perjalanan..."></textarea>
+
+        </div>
+
+
+        <div class="mt">
+
+          <label>
+            Foto
+          </label>
+
+          <input
+            id="photoInput"
+            type="file"
+            accept="image/*"
+            onchange="previewPhoto(event)">
+
+        </div>
+
+
+        <div class="mt">
+
+          <div
+            id="photoPreview"
+            class="photo-preview">
+
+            Belum ada foto
 
           </div>
 
         </div>
 
 
-        <div class="card">
+        <button
+          id="saveButton"
+          class="btn btn-primary full mt"
+          onclick="saveUpdate()">
 
-          <div class="table-wrap">
+          Simpan Monitoring
 
-            <table>
+        </button>
 
-              <thead>
+      </div>
 
-                <tr>
+    </div>
 
-                  <th>AWB</th>
-                  <th>Project</th>
-                  <th>Route</th>
-                  <th>Type</th>
-                  <th>Nopol</th>
-                  <th>Status</th>
-                  <th>Performance</th>
-                  <th></th>
 
-                </tr>
+    <div class="card">
 
-              </thead>
+      <div class="card-head">
 
-              <tbody id="liveTable">
+        <div class="card-title">
+          Timeline AWB
+        </div>
 
-                <tr>
-                  <td colspan="8">
-                    <div class="empty">
-                      Loading...
-                    </div>
-                  </td>
-                </tr>
+      </div>
 
-              </tbody>
 
-            </table>
+      <div class="card-body">
 
+        <div id="updateTimeline">
+
+          <div class="empty">
+            Masukkan AWB terlebih dahulu.
           </div>
 
         </div>
 
-      </section>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
 
 
-      <!-- =================================================
-           SEARCH
-      ================================================== -->
+<!-- =====================================================
+REPORT
+===================================================== -->
 
-      <section
-        id="page-search"
-        class="page">
+<section id="page-report" class="page hidden">
 
-        <div class="page-head">
+  <div class="card">
 
-          <div>
+    <div class="card-head">
 
-            <h2>
-              Search AWB
-            </h2>
+      <div>
 
-            <p>
-              Detail trip dan timeline monitoring.
-            </p>
-
-          </div>
-
+        <div class="card-title">
+          Operational Report
         </div>
 
-
-        <div class="card">
-
-          <div class="search-row">
-
-            <input
-              id="searchAWBInput"
-              placeholder="Masukkan Nomor AWB"
-              onkeydown="
-              if(event.key==='Enter'){
-                searchAWB();
-              }">
-
-            <button
-              class="btn btn-primary"
-              onclick="searchAWB()">
-
-              Search
-
-            </button>
-
-          </div>
-
+        <div class="page-sub">
+          Summary berdasarkan DB_Master
         </div>
 
-
-        <div id="tripResult"></div>
-
-      </section>
+      </div>
 
 
-      <!-- =================================================
-           UPDATE
-      ================================================== -->
+      <button
+        class="btn btn-light"
+        onclick="loadReport()">
 
-      <section
-        id="page-update"
-        class="page">
+        Refresh
 
-        <div class="page-head">
+      </button>
 
-          <div>
+    </div>
 
-            <h2>
-              Update Monitoring
-            </h2>
 
-            <p>
-              Simpan posisi dan kondisi trip.
-            </p>
+    <div class="card-body">
+
+      <div
+        id="reportLoading"
+        class="loading">
+
+        <div class="spinner"></div>
+
+        Memuat report...
+
+      </div>
+
+
+      <div
+        id="reportContent"
+        class="hidden">
+
+
+        <div class="grid grid-3">
+
+
+          <div class="card stat">
+
+            <div class="stat-label">
+              TOTAL
+            </div>
+
+            <div
+              id="reportTotal"
+              class="stat-value">
+
+              0
+
+            </div>
 
           </div>
-
-        </div>
-
-
-        <div class="grid-2">
 
 
           <div class="card">
 
-            <div class="card-title">
-              Pilih Trip
-            </div>
+            <div class="card-head">
 
-
-            <div class="form-group">
-
-              <label>
-                Nomor AWB
-              </label>
-
-              <div class="search-row">
-
-                <input
-                  id="updateAWB"
-                  placeholder="Nomor AWB">
-
-                <button
-                  class="btn btn-primary"
-                  onclick="loadUpdateTrip()">
-
-                  Cari
-
-                </button>
-
+              <div class="card-title">
+                Type Trip
               </div>
 
             </div>
 
+            <div
+              id="reportType"
+              class="card-body">
 
-            <div id="updateTripInfo"></div>
+            </div>
 
           </div>
 
 
           <div class="card">
 
-            <div class="card-title">
-              Monitoring Update
-            </div>
+            <div class="card-head">
 
-
-            <div class="form-group">
-
-              <label>
-                Jam Update
-              </label>
-
-              <input
-                id="jamUpdate"
-                type="datetime-local">
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label>
-                Kendala
-              </label>
-
-              <select id="kendalaSelect">
-
-                <option value="">
-                  Tidak ada kendala
-                </option>
-
-              </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label>
-                Keterangan
-              </label>
-
-              <textarea
-                id="keterangan"
-                placeholder="Contoh: Unit sudah sampai gateway..."></textarea>
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label>
-                Foto
-              </label>
-
-              <div class="upload-box">
-
-                <input
-                  id="photoInput"
-                  type="file"
-                  accept="image/*">
-
-                <div
-                  style="
-                  font-size:10px;
-                  color:#64748b;
-                  margin-top:6px">
-
-                  Foto dokumentasi monitoring.
-
-                </div>
-
-                <img
-                  id="photoPreview"
-                  class="photo-preview hidden">
-
+              <div class="card-title">
+                Performance
               </div>
 
             </div>
 
+            <div
+              id="reportPerformance"
+              class="card-body">
 
-            <button
-              id="saveUpdateBtn"
-              class="btn btn-primary btn-block"
-              onclick="saveMonitoring()">
-
-              Simpan Monitoring
-
-            </button>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =================================================
-           REPORT
-      ================================================== -->
-
-      <section
-        id="page-report"
-        class="page">
-
-        <div class="page-head">
-
-          <div>
-
-            <h2>
-              Report
-            </h2>
-
-            <p>
-              Ringkasan performa operasional.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div class="grid-2">
-
-          <div class="card">
-
-            <div class="card-title">
-              Project
-            </div>
-
-            <div id="reportProjects">
-              Loading...
-            </div>
-
-          </div>
-
-
-          <div class="card">
-
-            <div class="card-title">
-              Performance
-            </div>
-
-            <div id="reportPerformance">
-              Loading...
-            </div>
-
-          </div>
-
-
-          <div class="card">
-
-            <div class="card-title">
-              Type Trip
-            </div>
-
-            <div id="reportType">
-              Loading...
-            </div>
-
-          </div>
-
-
-          <div class="card">
-
-            <div class="card-title">
-              Trip Status
-            </div>
-
-            <div id="reportStatus">
-              Loading...
             </div>
 
           </div>
 
         </div>
 
-      </section>
+
+        <div class="grid grid-2 mt">
+
+
+          <div class="card">
+
+            <div class="card-head">
+
+              <div class="card-title">
+                Project
+              </div>
+
+            </div>
+
+            <div
+              id="reportProjects"
+              class="card-body">
+
+            </div>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="card-head">
+
+              <div class="card-title">
+                Trip Status
+              </div>
+
+            </div>
+
+            <div
+              id="reportStatus"
+              class="card-body">
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
 
     </div>
 
@@ -1639,207 +1772,165 @@ tr:hover td{
 </div>
 
 
-<!-- =====================================================
-     TOAST
-===================================================== -->
-
-<div id="toast"></div>
-
-
-<!-- =====================================================
-     LOADING
-===================================================== -->
-
-<div id="loading">
-
-  <div class="loader-box">
-
-    <div class="loader"></div>
-
-    <div
-      id="loadingText"
-      class="loader-text">
-
-      Loading...
-
-    </div>
-
-  </div>
-
-</div>
-
-
 <script>
 
-/* =====================================================
-   CONFIG
-===================================================== */
+/* =========================================================
+CONFIG API
+========================================================= */
 
 const API_URL =
 'https://script.google.com/macros/s/AKfycbxUgKEUjjGPMAIXAIT3L03pWvOlW_OdpeaNJ_KJqlFV5BBJOAelogJl4kZju7flsLgS/exec';
 
 
-const STORAGE_KEY =
-'SERYU_TC_SESSION';
+let TOKEN =
+localStorage.getItem('seryutc_token') || '';
+
+let CURRENT_TRIP = null;
+
+let PHOTO_BASE64 = '';
+
+let PHOTO_MIME = '';
 
 
-let SESSION = null;
-
-let CURRENT_PAGE =
-'dashboard';
-
-let CURRENT_TRIP =
-null;
-
-let CACHE = {
-
-  projects:null,
-
-  kendala:null,
-
-  dashboard:null
-
-};
-
-
-/* =====================================================
-   INIT
-===================================================== */
+/* =========================================================
+INIT
+========================================================= */
 
 document.addEventListener(
-  'DOMContentLoaded',
-  init
-);
+'DOMContentLoaded',
+function(){
 
+  if(TOKEN){
 
-function init(){
+    showApp();
 
-  const saved =
-    localStorage.getItem(
-      STORAGE_KEY
-    );
-
-
-  if(saved){
-
-    try{
-
-      SESSION =
-        JSON.parse(saved);
-
-      if(
-        SESSION &&
-        SESSION.token
-      ){
-
-        showApp();
-
-      }
-
-    }catch(e){
-
-      localStorage.removeItem(
-        STORAGE_KEY
-      );
-
-    }
+    loadDashboard();
 
   }
 
+  updateClock();
 
-  document
-    .getElementById(
-      'loginForm'
-    )
-    .addEventListener(
-      'submit',
-      login
-    );
+  setInterval(
+    updateClock,
+    1000
+  );
 
 
   document
-    .getElementById(
-      'photoInput'
-    )
-    .addEventListener(
-      'change',
-      previewPhoto
-    );
+  .getElementById('password')
+  .addEventListener(
+    'keydown',
+    function(e){
+
+      if(e.key === 'Enter'){
+        login();
+      }
+
+    }
+  );
 
 
   document
-    .querySelectorAll(
-      '.nav-btn'
-    )
-    .forEach(
-      function(btn){
+  .getElementById('trackingAWB')
+  .addEventListener(
+    'keydown',
+    function(e){
 
-        btn.addEventListener(
-          'click',
-          function(){
+      if(e.key === 'Enter'){
+        searchAWB();
+      }
 
-            openPage(
-              btn.dataset.page
-            );
+    }
+  );
 
-          }
-        );
 
+  document
+  .getElementById('updateAWB')
+  .addEventListener(
+    'keydown',
+    function(e){
+
+      if(e.key === 'Enter'){
+        loadUpdateAWB();
+      }
+
+    }
+  );
+
+});
+
+
+/* =========================================================
+CLOCK
+========================================================= */
+
+function updateClock(){
+
+  const el =
+    document.getElementById('clock');
+
+  if(!el)return;
+
+  el.textContent =
+    new Date()
+    .toLocaleString(
+      'id-ID',
+      {
+        dateStyle:'medium',
+        timeStyle:'medium'
       }
     );
 
 }
 
 
-/* =====================================================
-   API GET
-===================================================== */
+/* =========================================================
+API
+========================================================= */
 
-async function apiGet(
+async function api(
   action,
-  params={}
+  params={},
+  method='GET'
 ){
 
-  const query =
-    new URLSearchParams();
-
-
-  query.set(
-    'action',
-    action
-  );
-
-
   if(
-    SESSION &&
-    SESSION.token
+    !API_URL ||
+    API_URL.includes(
+      'PASTE_APPS_SCRIPT'
+    )
   ){
 
-    query.set(
-      'token',
-      SESSION.token
+    throw new Error(
+      'API_URL belum diisi.'
     );
 
   }
 
 
-  Object.keys(params)
+  if(method === 'GET'){
+
+    const query =
+      new URLSearchParams();
+
+    query.set(
+      'action',
+      action
+    );
+
+
+    Object.keys(params)
     .forEach(
-      function(key){
-
-        const value =
-          params[key];
-
+      key => {
 
         if(
-          value !== undefined &&
-          value !== null &&
-          value !== ''
+          params[key] !== undefined &&
+          params[key] !== null
         ){
 
           query.set(
             key,
-            value
+            params[key]
           );
 
         }
@@ -1848,35 +1939,11 @@ async function apiGet(
     );
 
 
-  const controller =
-    new AbortController();
-
-
-  const timer =
-    setTimeout(
-      function(){
-
-        controller.abort();
-
-      },
-      25000
-    );
-
-
-  try{
-
     const response =
       await fetch(
         API_URL +
         '?' +
-        query.toString(),
-        {
-          method:'GET',
-          cache:'no-store',
-          redirect:'follow',
-          signal:
-            controller.signal
-        }
+        query.toString()
       );
 
 
@@ -1890,270 +1957,76 @@ async function apiGet(
     }
 
 
-    const text =
-      await response.text();
-
-
-    if(!text){
-
-      throw new Error(
-        'Server mengembalikan response kosong'
-      );
-
-    }
-
-
-    let result;
-
-
-    try{
-
-      result =
-        JSON.parse(text);
-
-    }catch(e){
-
-      throw new Error(
-        'Response server bukan JSON'
-      );
-
-    }
-
-
-    if(
-      result &&
-      result.error &&
-      (
-        String(result.error)
-          .toLowerCase()
-          .includes('session') ||
-        String(result.error)
-          .toLowerCase()
-          .includes('token')
-      )
-    ){
-
-      forceLogout();
-
-    }
-
-
-    return result;
-
-  }catch(err){
-
-    if(
-      err.name ===
-      'AbortError'
-    ){
-
-      throw new Error(
-        'Request terlalu lama. Coba Refresh.'
-      );
-
-    }
-
-
-    if(
-      err.message ===
-      'Failed to fetch'
-    ){
-
-      throw new Error(
-        'Gagal terhubung ke server. Coba Refresh.'
-      );
-
-    }
-
-
-    throw err;
-
-  }finally{
-
-    clearTimeout(
-      timer
-    );
+    return response.json();
 
   }
 
-}
-
-
-/* =====================================================
-   API POST
-===================================================== */
-
-async function apiPost(
-  action,
-  data={}
-){
 
   const body =
     Object.assign(
       {},
-      data,
+      params,
       {
         action:action
       }
     );
 
 
-  if(
-    SESSION &&
-    SESSION.token
-  ){
-
-    body.token =
-      SESSION.token;
-
-  }
-
-
-  const controller =
-    new AbortController();
-
-
-  const timer =
-    setTimeout(
-      function(){
-
-        controller.abort();
-
-      },
-      30000
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method:'POST',
+        headers:{
+          'Content-Type':
+            'text/plain;charset=utf-8'
+        },
+        body:
+          JSON.stringify(body)
+      }
     );
 
 
-  try{
+  if(!response.ok){
 
-    const response =
-      await fetch(
-        API_URL,
-        {
-          method:'POST',
-          redirect:'follow',
-          headers:{
-            'Content-Type':
-              'text/plain;charset=utf-8'
-          },
-          body:
-            JSON.stringify(body),
-          signal:
-            controller.signal
-        }
-      );
-
-
-    if(!response.ok){
-
-      throw new Error(
-        'HTTP ' +
-        response.status
-      );
-
-    }
-
-
-    const text =
-      await response.text();
-
-
-    if(!text){
-
-      throw new Error(
-        'Response server kosong'
-      );
-
-    }
-
-
-    try{
-
-      return JSON.parse(
-        text
-      );
-
-    }catch(e){
-
-      throw new Error(
-        'Response server bukan JSON'
-      );
-
-    }
-
-  }catch(err){
-
-    if(
-      err.name ===
-      'AbortError'
-    ){
-
-      throw new Error(
-        'Request terlalu lama.'
-      );
-
-    }
-
-
-    if(
-      err.message ===
-      'Failed to fetch'
-    ){
-
-      throw new Error(
-        'Gagal terhubung ke server.'
-      );
-
-    }
-
-
-    throw err;
-
-  }finally{
-
-    clearTimeout(
-      timer
+    throw new Error(
+      'HTTP ' +
+      response.status
     );
 
   }
+
+
+  return response.json();
 
 }
 
 
-/* =====================================================
-   LOGIN
-===================================================== */
+/* =========================================================
+LOGIN
+========================================================= */
 
-async function login(e){
-
-  e.preventDefault();
-
+async function login(){
 
   const username =
     document
-      .getElementById(
-        'username'
-      )
-      .value
-      .trim();
+    .getElementById('username')
+    .value
+    .trim();
 
 
   const password =
     document
-      .getElementById(
-        'password'
-      )
-      .value
-      .trim();
+    .getElementById('password')
+    .value
+    .trim();
 
 
-  if(
-    !username ||
-    !password
-  ){
+  if(!username || !password){
 
-    toast(
-      'Username dan password wajib diisi'
+    showLoginAlert(
+      'Username dan password wajib diisi.',
+      'error'
     );
 
     return;
@@ -2161,373 +2034,285 @@ async function login(e){
   }
 
 
-  loading(
-    true,
-    'Login...'
-  );
+  const button =
+    document.getElementById(
+      'loginButton'
+    );
+
+
+  button.disabled = true;
+
+  button.textContent =
+    'Memproses...';
 
 
   try{
 
     const result =
-      await apiPost(
+      await api(
         'login',
         {
           username,
           password
-        }
+        },
+        'GET'
       );
 
 
-    if(
-      !result ||
-      !result.success
-    ){
+    if(!result.success){
 
       throw new Error(
-        result &&
-        result.error
-          ? result.error
-          : 'Login gagal'
+        result.error ||
+        'Login gagal'
       );
 
     }
 
 
-    SESSION = {
-
-      token:
-        result.token,
-
-      user:
-        result.user || {}
-
-    };
+    TOKEN =
+      result.token ||
+      '';
 
 
     localStorage.setItem(
-      STORAGE_KEY,
+      'seryutc_token',
+      TOKEN
+    );
+
+
+    localStorage.setItem(
+      'seryutc_user',
       JSON.stringify(
-        SESSION
+        result.user ||
+        {}
       )
     );
 
 
     showApp();
 
+    loadDashboard();
 
-    toast(
-      'Login berhasil'
-    );
 
   }catch(err){
 
-    toast(
-      err.message
+    showLoginAlert(
+      err.message ||
+      'Login gagal',
+      'error'
     );
 
   }finally{
 
-    loading(false);
+    button.disabled = false;
+
+    button.textContent =
+      'Masuk ke Monitoring';
 
   }
 
 }
 
 
-/* =====================================================
-   SHOW APP
-===================================================== */
+/* =========================================================
+SHOW APP
+========================================================= */
 
 function showApp(){
 
   document
-    .getElementById(
-      'loginPage'
-    )
-    .classList
-    .add(
-      'hidden'
-    );
+  .getElementById('loginPage')
+  .classList
+  .add('hidden');
 
 
   document
-    .getElementById(
-      'app'
-    )
-    .classList
-    .remove(
-      'hidden'
+  .getElementById('app')
+  .classList
+  .remove('hidden');
+
+
+  const raw =
+    localStorage.getItem(
+      'seryutc_user'
     );
 
 
-  const user =
-    SESSION &&
-    SESSION.user
-      ? SESSION.user
-      : {};
+  if(!raw)return;
 
 
-  document
-    .getElementById(
-      'sideUserName'
-    )
+  try{
+
+    const user =
+      JSON.parse(raw);
+
+
+    document
+    .getElementById('userName')
     .textContent =
       user.nama ||
+      user.name ||
       user.username ||
       '-';
 
 
-  document
-    .getElementById(
-      'sideUserRole'
-    )
+    document
+    .getElementById('userRole')
     .textContent =
       user.role ||
       '-';
 
 
-  loadDashboard();
+  }catch(e){
+
+    console.error(e);
+
+  }
 
 }
 
 
-/* =====================================================
-   LOGOUT
-===================================================== */
+/* =========================================================
+LOGOUT
+========================================================= */
 
 function logout(){
 
-  forceLogout();
+  TOKEN = '';
 
-}
-
-
-function forceLogout(){
-
-  SESSION = null;
+  CURRENT_TRIP = null;
 
   localStorage.removeItem(
-    STORAGE_KEY
+    'seryutc_token'
   );
 
+  localStorage.removeItem(
+    'seryutc_user'
+  );
 
-  document
-    .getElementById(
-      'app'
-    )
-    .classList
-    .add(
-      'hidden'
-    );
-
-
-  document
-    .getElementById(
-      'loginPage'
-    )
-    .classList
-    .remove(
-      'hidden'
-    );
+  location.reload();
 
 }
 
 
-/* =====================================================
-   PAGE
-===================================================== */
+/* =========================================================
+NAV
+========================================================= */
 
-function openPage(
-  page
+function showPage(
+  page,
+  button
 ){
 
-  CURRENT_PAGE =
-    page;
-
-
   document
-    .querySelectorAll(
-      '.page'
-    )
-    .forEach(
-      function(el){
-
-        el.classList.remove(
-          'active'
-        );
-
-      }
-    );
+  .querySelectorAll('.page')
+  .forEach(
+    el =>
+      el.classList.add('hidden')
+  );
 
 
   const target =
     document.getElementById(
-      'page-' +
-      page
+      'page-' + page
     );
 
 
   if(target){
 
-    target.classList.add(
+    target.classList.remove(
+      'hidden'
+    );
+
+  }
+
+
+  document
+  .querySelectorAll(
+    '.nav button'
+  )
+  .forEach(
+    el =>
+      el.classList.remove(
+        'active'
+      )
+  );
+
+
+  if(button){
+
+    button.classList.add(
       'active'
     );
 
   }
 
 
-  document
-    .querySelectorAll(
-      '.nav-btn'
-    )
-    .forEach(
-      function(btn){
-
-        btn.classList.toggle(
-          'active',
-          btn.dataset.page ===
-          page
-        );
-
-      }
-    );
-
-
   const titles = {
 
-    dashboard:
+    dashboard:[
       'Dashboard',
+      'Monitoring operational trip'
+    ],
 
-    live:
+    tracking:[
+      'Tracking AWB',
+      'Detail perjalanan & timeline'
+    ],
+
+    live:[
       'Live Trips',
+      'Daftar trip aktif'
+    ],
 
-    search:
-      'Search AWB',
-
-    update:
+    update:[
       'Update Monitoring',
+      'Input monitoring perjalanan'
+    ],
 
-    report:
-      'Report'
+    report:[
+      'Operational Report',
+      'Summary operational'
+    ]
 
   };
 
 
-  document
-    .getElementById(
-      'pageTitle'
-    )
-    .textContent =
-      titles[page] ||
-      page;
+  const info =
+    titles[page] ||
+    titles.dashboard;
 
 
-  if(
-    page ===
-    'dashboard'
-  ){
+  setText(
+    'pageTitle',
+    info[0]
+  );
 
+  setText(
+    'pageSub',
+    info[1]
+  );
+
+
+  if(page === 'dashboard'){
     loadDashboard();
-
   }
 
+  if(page === 'live'){
 
-  if(
-    page ===
-    'live'
-  ){
-
-    loadLivePage();
-
-  }
-
-
-  if(
-    page ===
-    'update'
-  ){
-
-    loadKendala();
-
-    setDefaultJam();
-
-  }
-
-
-  if(
-    page ===
-    'report'
-  ){
-
-    loadReport();
-
-  }
-
-}
-
-
-/* =====================================================
-   REFRESH
-===================================================== */
-
-function refreshCurrentPage(){
-
-  if(
-    CURRENT_PAGE ===
-    'dashboard'
-  ){
-
-    CACHE.dashboard =
-      null;
-
-    loadDashboard();
-
-    return;
-
-  }
-
-
-  if(
-    CURRENT_PAGE ===
-    'live'
-  ){
+    loadProjects();
 
     loadLiveTrips();
 
-    return;
+  }
+
+  if(page === 'update'){
+
+    loadKendala();
 
   }
 
-
-  if(
-    CURRENT_PAGE ===
-    'search'
-  ){
-
-    searchAWB();
-
-    return;
-
-  }
-
-
-  if(
-    CURRENT_PAGE ===
-    'update'
-  ){
-
-    loadUpdateTrip();
-
-    return;
-
-  }
-
-
-  if(
-    CURRENT_PAGE ===
-    'report'
-  ){
+  if(page === 'report'){
 
     loadReport();
 
@@ -2536,868 +2321,939 @@ function refreshCurrentPage(){
 }
 
 
-/* =====================================================
-   DASHBOARD
-===================================================== */
+/* =========================================================
+DASHBOARD
+========================================================= */
 
 async function loadDashboard(){
 
-  if(
-    CACHE.dashboard
-  ){
-
-    renderDashboard(
-      CACHE.dashboard
+  const loading =
+    document.getElementById(
+      'dashboardLoading'
     );
 
-    return;
 
-  }
+  const content =
+    document.getElementById(
+      'dashboardContent'
+    );
+
+
+  loading.classList.remove(
+    'hidden'
+  );
+
+
+  content.classList.add(
+    'hidden'
+  );
 
 
   try{
 
     const result =
-      await apiGet(
-        'dashboard'
+      await api(
+        'dashboard',
+        {
+          token:TOKEN
+        }
       );
 
 
-    if(
-      !result ||
-      !result.success
-    ){
+    if(!result.success){
 
       throw new Error(
-        result &&
-        result.error
-          ? result.error
-          : 'Dashboard gagal dimuat'
+        result.error ||
+        'Dashboard gagal dimuat'
       );
 
     }
 
 
-    CACHE.dashboard =
-      result;
+    const s =
+      result.stats ||
+      {};
 
 
-    renderDashboard(
-      result
+    setText(
+      'statTotal',
+      s.totalTrip || 0
     );
+
+    setText(
+      'statOnTrip',
+      s.onTrip || 0
+    );
+
+    setText(
+      'statDelivered',
+      s.delivered || 0
+    );
+
+    setText(
+      'statDelay',
+      s.delay || 0
+    );
+
+    setText(
+      'statOnTime',
+      s.onTime || 0
+    );
+
+    setText(
+      'dashOnTime',
+      s.onTime || 0
+    );
+
+    setText(
+      'dashLate',
+      s.late || 0
+    );
+
+    setText(
+      'dashTrip',
+      s.onTrip || 0
+    );
+
+    setText(
+      'dashDelivered',
+      s.delivered || 0
+    );
+
+    setText(
+      'dashNotStarted',
+      s.notStarted || 0
+    );
+
+    setText(
+      'dashDelay',
+      s.delay || 0
+    );
+
+
+    renderProjectSummary(
+      result.projects ||
+      []
+    );
+
+
+    loading.classList.add(
+      'hidden'
+    );
+
+    content.classList.remove(
+      'hidden'
+    );
+
 
   }catch(err){
 
-    toast(
-      err.message
-    );
+    loading.innerHTML =
+      `
+      <div class="alert alert-error">
+        ${escapeHtml(
+          err.message
+        )}
+      </div>
+      `;
 
   }
 
 }
 
 
-/* =====================================================
-   RENDER DASHBOARD
-===================================================== */
-
-function renderDashboard(
-  result
-){
-
-  const s =
-    result.stats ||
-    {};
-
-
-  document
-    .getElementById(
-      'statTotal'
-    )
-    .textContent =
-      number(
-        s.totalTrip
-      );
-
-
-  document
-    .getElementById(
-      'statOnTrip'
-    )
-    .textContent =
-      number(
-        s.onTrip
-      );
-
-
-  document
-    .getElementById(
-      'statDelivered'
-    )
-    .textContent =
-      number(
-        s.delivered
-      );
-
-
-  document
-    .getElementById(
-      'statLate'
-    )
-    .textContent =
-      number(
-        s.late
-      );
-
-
-  document
-    .getElementById(
-      'statOnTime'
-    )
-    .textContent =
-      number(
-        s.onTime
-      );
-
-
-  renderProjectSummary(
-    result.projects ||
-    []
-  );
-
-}
-
-
-/* =====================================================
-   PROJECT SUMMARY
-===================================================== */
+/* =========================================================
+PROJECT SUMMARY
+========================================================= */
 
 function renderProjectSummary(
   projects
 ){
 
-  const el =
+  const tbody =
     document.getElementById(
       'projectSummary'
     );
 
 
   if(
-    !projects ||
+    !Array.isArray(projects) ||
     !projects.length
   ){
 
-    el.innerHTML =
-      '<div class="empty">' +
-      'Tidak ada data.' +
-      '</div>';
+    tbody.innerHTML =
+      `
+      <tr>
+        <td colspan="5" class="empty">
+          Tidak ada data
+        </td>
+      </tr>
+      `;
 
     return;
 
   }
 
 
-  let html =
-    '<div class="table-wrap">' +
-    '<table>' +
-    '<thead>' +
-    '<tr>' +
-    '<th>Project</th>' +
-    '<th>Total</th>' +
-    '<th>On Trip</th>' +
-    '<th>Delivered</th>' +
-    '<th>Late</th>' +
-    '</tr>' +
-    '</thead>' +
-    '<tbody>';
+  tbody.innerHTML =
+    projects
+    .map(
+      p => `
 
+      <tr>
 
-  projects.forEach(
-    function(p){
+        <td>
+          <strong>
+            ${escapeHtml(
+              p.project ||
+              p.projectName ||
+              '-'
+            )}
+          </strong>
+        </td>
 
-      html +=
-        '<tr>' +
+        <td>
+          ${p.total || 0}
+        </td>
 
-        '<td>' +
-        esc(
-          p.project
-        ) +
-        '</td>' +
+        <td>
+          <span class="badge badge-green">
+            ${p.onTrip || 0}
+          </span>
+        </td>
 
-        '<td>' +
-        number(
-          p.total
-        ) +
-        '</td>' +
+        <td>
+          <span class="badge badge-blue">
+            ${p.delivered || 0}
+          </span>
+        </td>
 
-        '<td>' +
-        number(
-          p.onTrip
-        ) +
-        '</td>' +
+        <td>
+          <span class="badge badge-red">
+            ${p.late || 0}
+          </span>
+        </td>
 
-        '<td>' +
-        number(
-          p.delivered
-        ) +
-        '</td>' +
+      </tr>
 
-        '<td>' +
-        number(
-          p.late
-        ) +
-        '</td>' +
-
-        '</tr>';
-
-    }
-  );
-
-
-  html +=
-    '</tbody>' +
-    '</table>' +
-    '</div>';
-
-
-  el.innerHTML =
-    html;
-
-}
-
-
-/* =====================================================
-   QUICK SEARCH
-===================================================== */
-
-function quickSearch(){
-
-  const awb =
-    document
-      .getElementById(
-        'quickAWB'
-      )
-      .value
-      .trim();
-
-
-  if(!awb){
-
-    toast(
-      'Masukkan Nomor AWB'
-    );
-
-    return;
-
-  }
-
-
-  document
-    .getElementById(
-      'searchAWBInput'
+      `
     )
-    .value =
-      awb;
-
-
-  openPage(
-    'search'
-  );
-
-
-  searchAWB();
+    .join('');
 
 }
 
 
-/* =====================================================
-   SEARCH AWB
-===================================================== */
+/* =========================================================
+SEARCH AWB
+========================================================= */
 
-async function searchAWB(){
+async function searchAWB(
+  awbOverride=''
+){
+
+  const input =
+    document.getElementById(
+      'trackingAWB'
+    );
+
 
   const awb =
-    document
-      .getElementById(
-        'searchAWBInput'
-      )
-      .value
-      .trim();
+    (
+      awbOverride ||
+      input.value
+    )
+    .trim();
 
 
   if(!awb){
 
-    toast(
-      'Nomor AWB wajib diisi'
-    );
+    input.focus();
 
     return;
 
   }
 
 
-  const container =
+  const box =
     document.getElementById(
-      'tripResult'
+      'trackingResult'
     );
 
 
-  container.innerHTML =
-    '<div class="card">' +
-    '<div class="empty">' +
-    'Mencari AWB...' +
-    '</div>' +
-    '</div>';
+  box.innerHTML =
+    `
+    <div class="loading">
+      <div class="spinner"></div>
+      Mencari AWB...
+    </div>
+    `;
 
 
   try{
 
     const result =
-      await apiGet(
+      await api(
         'searchAWB',
         {
+          token:TOKEN,
           awb:awb
         }
       );
 
 
-    if(
-      !result ||
-      !result.success
-    ){
+    if(!result.success){
 
       throw new Error(
-        result &&
-        result.error
-          ? result.error
-          : 'AWB tidak ditemukan'
+        result.error ||
+        'AWB tidak ditemukan'
       );
 
     }
 
 
     CURRENT_TRIP =
-      result.trip;
+      result.trip ||
+      null;
 
 
-    renderTrip(
-      result.trip,
-      result.history ||
-      [],
-      result.timeline ||
-      []
-    );
+    box.innerHTML =
+      renderTrip(
+        result.trip,
+        result.timeline ||
+        [],
+        result.history ||
+        []
+      );
+
 
   }catch(err){
 
-    container.innerHTML =
-      '<div class="card">' +
-      '<b>Data tidak ditemukan</b>' +
-      '<div style="margin-top:6px;color:#64748b;font-size:11px">' +
-      esc(
-        err.message
-      ) +
-      '</div>' +
-      '</div>';
+    box.innerHTML =
+      `
+      <div class="alert alert-error">
+        ${escapeHtml(
+          err.message
+        )}
+      </div>
+      `;
 
   }
 
 }
 
 
-/* =====================================================
-   RENDER TRIP
-===================================================== */
+/* =========================================================
+RENDER TRIP
+========================================================= */
 
 function renderTrip(
   trip,
-  history,
-  timeline
+  timeline,
+  history
 ){
-
-  const container =
-    document.getElementById(
-      'tripResult'
-    );
-
 
   if(!trip){
 
-    container.innerHTML =
-      '<div class="card">' +
-      '<div class="empty">' +
-      'Trip tidak ditemukan.' +
-      '</div>' +
-      '</div>';
-
-    return;
+    return `
+      <div class="empty">
+        Data trip tidak ditemukan.
+      </div>
+    `;
 
   }
 
 
-  let html = '';
+  return `
+
+  <div class="card">
+
+    <div class="card-body">
+
+      <div class="trip-header">
+
+        <div>
+
+          <div class="awb">
+            ${escapeHtml(
+              trip.awb ||
+              trip.noAwb ||
+              '-'
+            )}
+          </div>
+
+          <div class="route">
+            ${escapeHtml(
+              trip.route ||
+              buildRoute(trip) ||
+              'Route belum tersedia'
+            )}
+          </div>
+
+        </div>
 
 
-  /* HEADER */
+        <div class="row">
 
-  html +=
-    '<div class="card">' +
+          ${statusBadge(
+            trip.tripStatus ||
+            trip.status
+          )}
 
-    '<div class="trip-header">' +
+          ${performanceBadge(
+            trip.performance ||
+            trip.slaPerformance
+          )}
 
-    '<div>' +
+        </div>
 
-    '<div class="awb">' +
-    esc(
-      trip.awb
-    ) +
-    '</div>' +
-
-    '<div class="route">' +
-    esc(
-      trip.route ||
-      '-'
-    ) +
-    '</div>' +
-
-    '</div>' +
-
-    '<div class="trip-badges">' +
-
-    statusBadge(
-      trip.tripStatus
-    ) +
-
-    performanceBadge(
-      trip.performance
-    ) +
-
-    '</div>' +
-
-    '</div>' +
-
-    '</div>';
+      </div>
 
 
-  /* INFO */
+      <div class="detail-grid">
 
-  html +=
-    '<div class="card">' +
+        ${detail(
+          'Project',
+          trip.projectName ||
+          trip.project
+        )}
 
-    '<div class="card-title">' +
-    'Informasi Trip' +
-    '</div>' +
+        ${detail(
+          'Detail Project',
+          trip.detailProject
+        )}
 
-    '<div class="info-grid">' +
+        ${detail(
+          'Type Trip',
+          trip.typeTrip
+        )}
 
-    info(
-      'Project',
-      trip.projectName
-    ) +
+        ${detail(
+          'Interval',
+          trip.monitoringInterval
+            ? trip.monitoringInterval +
+              ' Jam'
+            : '-'
+        )}
 
-    info(
-      'Detail Project',
-      trip.detailProject
-    ) +
+        ${detail(
+          'Origin',
+          trip.origin
+        )}
 
-    info(
-      'Type Trip',
-      trip.typeTrip
-    ) +
+        ${detail(
+          'Origin Address',
+          trip.originAddress
+        )}
 
-    info(
-      'Status Trip',
-      trip.tripStatus
-    ) +
+        ${detail(
+          'Destination',
+          trip.lastDestination ||
+          trip.destination1 ||
+          trip.destination
+        )}
 
-    info(
-      'Sales Order',
-      trip.salesOrder
-    ) +
+        ${detail(
+          'Gateway',
+          trip.gatewayDestination
+        )}
 
-    info(
-      'Pickup Date',
-      trip.pickupDate
-    ) +
+        ${detail(
+          'Vendor',
+          trip.logisticPartnerName ||
+          trip.vendor
+        )}
 
-    info(
-      'Origin',
-      trip.origin
-    ) +
+        ${detail(
+          'Partner Type',
+          trip.logisticPartnerType
+        )}
 
-    info(
-      'Destination',
-      trip.destination
-    ) +
+        ${detail(
+          'Nopol',
+          trip.nopol
+        )}
 
-    info(
-      'Last Destination',
-      trip.lastDestination
-    ) +
+        ${detail(
+          'Unit Type',
+          trip.unitType
+        )}
 
-    info(
-      'Logistic Partner',
-      trip.logisticPartnerName
-    ) +
+        ${detail(
+          'Driver 1',
+          trip.driver1
+        )}
 
-    info(
-      'Partner Type',
-      trip.logisticPartnerType
-    ) +
+        ${detail(
+          'Driver 2',
+          trip.driver2
+        )}
 
-    info(
-      'Driver 1',
-      trip.driver1
-    ) +
+        ${detail(
+          'Start Time',
+          trip.startTime1
+        )}
 
-    info(
-      'Driver 2',
-      trip.driver2
-    ) +
+        ${detail(
+          'End Time',
+          trip.endTime1
+        )}
 
-    info(
-      'Unit Type',
-      trip.unitType
-    ) +
+        ${detail(
+          'Estimasi',
+          trip.estimasiTime1
+        )}
 
-    info(
-      'Nopol',
-      trip.nopol
-    ) +
+        ${detail(
+          'Performance Time',
+          trip.performanceTime1
+        )}
 
-    info(
-      'Gateway J&T',
-      trip.gatewayJT
-    ) +
+        ${detail(
+          'SLA Database',
+          trip.slaDatabase
+        )}
 
-    info(
-      'Gateway Destination',
-      trip.gatewayDestination
-    ) +
+        ${detail(
+          'SLA Performance',
+          trip.slaPerformance
+        )}
 
-    info(
-      'SLA Type',
-      trip.slaType
-    ) +
+        ${detail(
+          'Pickup Date',
+          trip.pickupDate
+        )}
 
-    info(
-      'SLA Database',
-      trip.slaDatabase
-    ) +
+        ${detail(
+          'Date Delivered',
+          trip.dateDelivered
+        )}
 
-    info(
-      'SLA Performance',
-      trip.slaPerformance
-    ) +
+        ${detail(
+          'Order Status',
+          trip.orderStatus
+        )}
 
-    info(
-      'Start Time',
-      trip.startTime1
-    ) +
+        ${detail(
+          'Assignment',
+          trip.assignmentStatus
+        )}
 
-    info(
-      'End Time',
-      trip.endTime1
-    ) +
+      </div>
 
-    info(
-      'Date Delivered',
-      trip.dateDelivered
-    ) +
+    </div>
 
-    info(
-      'Surat Jalan',
-      trip.suratJalan
-    ) +
-
-    '</div>' +
-
-    '</div>';
-
-
-  /* TRACKING */
-
-  html +=
-    '<div class="grid-2">';
+  </div>
 
 
-  html +=
-    '<div class="card">' +
-
-    '<div class="card-title">' +
-    'Timeline Tracking' +
-    '</div>' +
-
-    renderTimeline(
-      timeline
-    ) +
-
-    '</div>';
+  <div class="grid grid-2 mt">
 
 
-  html +=
-    '<div class="card">' +
+    <div class="card">
 
-    '<div class="card-title">' +
-    'History Monitoring (' +
-    history.length +
-    ')' +
-    '</div>' +
+      <div class="card-head">
 
-    renderHistory(
-      history
-    ) +
+        <div class="card-title">
+          Timeline Tracking
+        </div>
 
-    '</div>';
+        <span class="badge badge-blue">
+          ${timeline.length}
+          event
+        </span>
 
-
-  html +=
-    '</div>';
+      </div>
 
 
-  container.innerHTML =
-    html;
+      <div class="card-body">
+
+        ${renderTimeline(
+          timeline
+        )}
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-head">
+
+        <div class="card-title">
+          Monitoring History
+        </div>
+
+        <span class="badge badge-gray">
+          ${history.length}
+          update
+        </span>
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Jam</th>
+              <th>Kendala</th>
+              <th>Keterangan</th>
+              <th>PIC</th>
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            ${renderHistory(
+              history
+            )}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+  `;
 
 }
 
 
-/* =====================================================
-   TIMELINE
-===================================================== */
+/* =========================================================
+BUILD ROUTE
+========================================================= */
+
+function buildRoute(
+  trip
+){
+
+  const origin =
+    trip.origin ||
+    '';
+
+
+  const destination =
+    trip.lastDestination ||
+    trip.destination1 ||
+    trip.destination ||
+    '';
+
+
+  if(
+    origin &&
+    destination
+  ){
+
+    return origin +
+      ' → ' +
+      destination;
+
+  }
+
+
+  return '';
+
+}
+
+
+/* =========================================================
+DETAIL
+========================================================= */
+
+function detail(
+  label,
+  value
+){
+
+  return `
+
+  <div class="detail">
+
+    <div class="detail-label">
+      ${escapeHtml(label)}
+    </div>
+
+    <div class="detail-value">
+      ${escapeHtml(
+        value ||
+        '-'
+      )}
+    </div>
+
+  </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+TIMELINE
+========================================================= */
 
 function renderTimeline(
   timeline
 ){
 
   if(
-    !timeline ||
+    !Array.isArray(timeline) ||
     !timeline.length
   ){
 
-    return (
-      '<div class="empty">' +
-      'Belum ada timeline monitoring.' +
-      '</div>'
-    );
+    return `
+      <div class="empty">
+        Belum ada timeline monitoring.
+      </div>
+    `;
 
   }
 
 
-  let html =
-    '<div class="timeline">';
+  return `
+
+  <div class="timeline">
+
+    ${
+      timeline
+      .map(
+        item => {
+
+          const status =
+            String(
+              item.status ||
+              ''
+            )
+            .toUpperCase();
 
 
-  timeline.forEach(
-    function(item){
-
-      const status =
-        String(
-          item.status ||
-          ''
-        ).toUpperCase();
+          let cls = '';
 
 
-      let extraClass =
-        '';
-
-
-      if(
-        status ===
-        'ISSUE'
-      ){
-
-        extraClass =
-          ' issue';
-
-      }
-
-
-      if(
-        status ===
-        'DELIVERY'
-      ){
-
-        extraClass =
-          ' delivery';
-
-      }
-
-
-      html +=
-
-        '<div class="timeline-item' +
-        extraClass +
-        '">' +
-
-        '<div class="timeline-dot"></div>' +
-
-        '<div class="timeline-title">' +
-        esc(
-          item.title ||
-          item.status ||
-          'Monitoring'
-        ) +
-        '</div>' +
-
-        '<div class="timeline-time">' +
-        esc(
-          item.time ||
-          '-'
-        ) +
-        '</div>';
-
-
-      if(
-        item.kendala
-      ){
-
-        html +=
-
-          '<div class="timeline-desc">' +
-
-          '<b>Kendala:</b> ' +
-
-          esc(
+          if(
+            status === 'ISSUE' ||
+            status === 'KENDALA' ||
             item.kendala
-          ) +
+          ){
 
-          '</div>';
+            cls =
+              'issue';
 
-      }
+          }else if(
+            status === 'DONE' ||
+            status === 'DELIVERED'
+          ){
 
+            cls =
+              'done';
 
-      if(
-        item.keterangan
-      ){
-
-        html +=
-
-          '<div class="timeline-desc">' +
-
-          esc(
-            item.keterangan
-          ) +
-
-          '</div>';
-
-      }
+          }
 
 
-      if(
-        item.pic
-      ){
-
-        html +=
-
-          '<div style="font-size:10px;color:#64748b;margin-top:5px">' +
-
-          'PIC: ' +
-
-          esc(
-            item.pic
-          ) +
-
-          '</div>';
-
-      }
+          const photo =
+            item.photo ||
+            item.foto ||
+            item.photoUrl ||
+            item.fotoUrl ||
+            '';
 
 
-      if(
-        item.photo
-      ){
+          return `
 
-        html +=
+          <div
+            class="timeline-item ${cls}">
 
-          '<img ' +
-          'class="timeline-photo" ' +
-          'src="' +
-          escAttr(
-            item.photo
-          ) +
-          '" ' +
-          'onerror="this.style.display=\'none\'">';
-
-      }
+            <div class="timeline-dot"></div>
 
 
-      html +=
-        '</div>';
+            <div class="timeline-content">
 
+              <div class="timeline-top">
+
+                <div class="timeline-title">
+
+                  ${escapeHtml(
+                    item.title ||
+                    item.event ||
+                    'Monitoring'
+                  )}
+
+                </div>
+
+
+                <div class="timeline-time">
+
+                  ${escapeHtml(
+                    item.time ||
+                    item.jamUpdate ||
+                    item.timestamp ||
+                    '-'
+                  )}
+
+                </div>
+
+              </div>
+
+
+              ${
+                item.kendala
+                ? `
+
+                <div class="mt">
+
+                  <span class="badge badge-red">
+                    KENDALA
+                  </span>
+
+                  <strong>
+                    ${escapeHtml(
+                      item.kendala
+                    )}
+                  </strong>
+
+                </div>
+
+                `
+                : ''
+              }
+
+
+              ${
+                item.keterangan
+                ? `
+
+                <div class="timeline-text">
+
+                  ${escapeHtml(
+                    item.keterangan
+                  )}
+
+                </div>
+
+                `
+                : ''
+              }
+
+
+              ${
+                item.pic
+                ? `
+
+                <div class="timeline-text">
+
+                  PIC:
+
+                  <strong>
+                    ${escapeHtml(
+                      item.pic
+                    )}
+                  </strong>
+
+                </div>
+
+                `
+                : ''
+              }
+
+
+              ${
+                photo
+                ? `
+
+                <img
+                  class="timeline-photo"
+                  src="${escapeAttr(photo)}"
+                  onclick="openPhoto(this.src)"
+                  onerror="this.style.display='none'">
+
+                `
+                : ''
+              }
+
+            </div>
+
+          </div>
+
+          `;
+
+        }
+      )
+      .join('')
     }
-  );
 
+  </div>
 
-  html +=
-    '</div>';
-
-
-  return html;
+  `;
 
 }
 
 
-/* =====================================================
-   HISTORY
-===================================================== */
+/* =========================================================
+OPEN PHOTO
+========================================================= */
+
+function openPhoto(
+  url
+){
+
+  if(!url)return;
+
+  window.open(
+    url,
+    '_blank'
+  );
+
+}
+
+
+/* =========================================================
+HISTORY
+========================================================= */
 
 function renderHistory(
   history
 ){
 
   if(
-    !history ||
+    !Array.isArray(history) ||
     !history.length
   ){
 
-    return (
-      '<div class="empty">' +
-      'Belum ada history monitoring.' +
-      '</div>'
-    );
+    return `
+      <tr>
+        <td
+          colspan="4"
+          class="empty">
+
+          Belum ada history.
+
+        </td>
+      </tr>
+    `;
 
   }
 
 
-  let html =
-
-    '<div class="table-wrap">' +
-
-    '<table>' +
-
-    '<thead>' +
-
-    '<tr>' +
-
-    '<th>Jam</th>' +
-    '<th>PIC</th>' +
-    '<th>Kendala</th>' +
-    '<th>Keterangan</th>' +
-    '<th>Foto</th>' +
-
-    '</tr>' +
-
-    '</thead>' +
-
-    '<tbody>';
-
-
-  history.forEach(
-    function(row){
+  return history
+  .map(
+    row => {
 
       const jam =
         getField(
           row,
           [
-            'Jam Update'
-          ]
-        );
-
-
-      const pic =
-        getField(
-          row,
-          [
-            'PIC'
+            'Jam Update',
+            'jamUpdate',
+            'Timestamp'
           ]
         );
 
@@ -3406,7 +3262,8 @@ function renderHistory(
         getField(
           row,
           [
-            'Kendala'
+            'Kendala',
+            'kendala'
           ]
         );
 
@@ -3415,191 +3272,140 @@ function renderHistory(
         getField(
           row,
           [
-            'Keterangan'
+            'Keterangan',
+            'keterangan'
           ]
         );
 
 
-      const foto =
+      const pic =
         getField(
           row,
           [
-            'Foto'
+            'PIC',
+            'pic',
+            'Nama'
           ]
         );
 
 
-      html +=
+      return `
 
-        '<tr>' +
+      <tr>
 
-        '<td>' +
-        esc(
-          jam ||
-          '-'
-        ) +
-        '</td>' +
+        <td>
+          ${escapeHtml(
+            jam ||
+            '-'
+          )}
+        </td>
 
-        '<td>' +
-        esc(
-          pic ||
-          '-'
-        ) +
-        '</td>' +
 
-        '<td>' +
+        <td>
 
-        (
-          kendala
+          ${
+            kendala
 
-            ? '<span class="badge badge-red">' +
-              esc(kendala) +
-              '</span>'
+            ? `
 
-            : '<span class="badge badge-green">' +
-              'OK' +
-              '</span>'
-        ) +
+            <span class="badge badge-red">
 
-        '</td>' +
+              ${escapeHtml(
+                kendala
+              )}
 
-        '<td>' +
-        esc(
-          ket ||
-          '-'
-        ) +
-        '</td>' +
+            </span>
 
-        '<td>' +
+            `
 
-        (
-          foto
+            : `
 
-            ? '<a href="' +
-              escAttr(foto) +
-              '" target="_blank">' +
-              'Foto' +
-              '</a>'
+            <span class="badge badge-green">
+              OK
+            </span>
 
-            : '-'
-        ) +
+            `
+          }
 
-        '</td>' +
+        </td>
 
-        '</tr>';
+
+        <td>
+
+          ${escapeHtml(
+            ket ||
+            '-'
+          )}
+
+        </td>
+
+
+        <td>
+
+          ${escapeHtml(
+            pic ||
+            '-'
+          )}
+
+        </td>
+
+      </tr>
+
+      `;
 
     }
-  );
-
-
-  html +=
-    '</tbody>' +
-    '</table>' +
-    '</div>';
-
-
-  return html;
+  )
+  .join('');
 
 }
 
 
-/* =====================================================
-   LIVE PAGE
-===================================================== */
-
-async function loadLivePage(){
-
-  await loadProjects();
-
-  loadLiveTrips();
-
-}
-
-
-/* =====================================================
-   PROJECT CACHE
-===================================================== */
+/* =========================================================
+PROJECTS
+========================================================= */
 
 async function loadProjects(){
-
-  if(
-    CACHE.projects
-  ){
-
-    renderProjects(
-      CACHE.projects
-    );
-
-    return;
-
-  }
-
 
   try{
 
     const result =
-      await apiGet(
-        'getProjects'
+      await api(
+        'getProjects',
+        {
+          token:TOKEN
+        }
       );
 
 
-    if(
-      !result ||
-      !result.success
-    ){
-
+    if(!result.success){
       return;
-
     }
 
 
-    CACHE.projects =
+    const select =
+      document.getElementById(
+        'filterProject'
+      );
+
+
+    const current =
+      select.value;
+
+
+    select.innerHTML =
+      `
+      <option value="">
+        Semua Project
+      </option>
+      `;
+
+
+    (
       result.projects ||
-      [];
-
-
-    renderProjects(
-      CACHE.projects
-    );
-
-  }catch(err){
-
-    console.error(
-      err
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   RENDER PROJECTS
-===================================================== */
-
-function renderProjects(
-  projects
-){
-
-  const select =
-    document.getElementById(
-      'filterProject'
-    );
-
-
-  const current =
-    select.value;
-
-
-  select.innerHTML =
-    '<option value="">' +
-    'Semua Project' +
-    '</option>';
-
-
-  (projects || [])
+      []
+    )
     .forEach(
-      function(project){
+      project => {
 
         const option =
           document.createElement(
@@ -3623,17 +3429,30 @@ function renderProjects(
     );
 
 
-  select.value =
-    current;
+    select.value =
+      current;
+
+
+  }catch(err){
+
+    console.error(err);
+
+  }
 
 }
 
 
-/* =====================================================
-   LIVE TRIPS
-===================================================== */
+/* =========================================================
+LIVE TRIPS
+========================================================= */
 
 async function loadLiveTrips(){
+
+  const loading =
+    document.getElementById(
+      'liveLoading'
+    );
+
 
   const tbody =
     document.getElementById(
@@ -3641,70 +3460,58 @@ async function loadLiveTrips(){
     );
 
 
-  tbody.innerHTML =
-    '<tr>' +
-    '<td colspan="8">' +
-    '<div class="empty">' +
-    'Loading trip...' +
-    '</div>' +
-    '</td>' +
-    '</tr>';
+  loading.classList.remove(
+    'hidden'
+  );
 
 
   try{
 
     const result =
-      await apiGet(
+      await api(
         'getLiveTrips',
         {
 
+          token:TOKEN,
+
           project:
             document
-              .getElementById(
-                'filterProject'
-              )
-              .value,
+            .getElementById(
+              'filterProject'
+            ).value,
 
           typeTrip:
             document
-              .getElementById(
-                'filterType'
-              )
-              .value,
+            .getElementById(
+              'filterType'
+            ).value,
 
           tripStatus:
             document
-              .getElementById(
-                'filterStatus'
-              )
-              .value,
+            .getElementById(
+              'filterStatus'
+            ).value,
 
           search:
             document
-              .getElementById(
-                'liveSearch'
-              )
-              .value
-              .trim(),
+            .getElementById(
+              'filterSearch'
+            ).value
+            .trim(),
 
           page:1,
 
-          limit:50
+          limit:100
 
         }
       );
 
 
-    if(
-      !result ||
-      !result.success
-    ){
+    if(!result.success){
 
       throw new Error(
-        result &&
-        result.error
-          ? result.error
-          : 'Gagal mengambil Live Trips'
+        result.error ||
+        'Gagal memuat Live Trips'
       );
 
     }
@@ -3715,241 +3522,231 @@ async function loadLiveTrips(){
       [];
 
 
-    if(
-      !data.length
-    ){
+    if(!data.length){
 
       tbody.innerHTML =
-        '<tr>' +
-        '<td colspan="8">' +
-        '<div class="empty">' +
-        'Tidak ada data.' +
-        '</div>' +
-        '</td>' +
-        '</tr>';
+        `
+        <tr>
+          <td
+            colspan="7"
+            class="empty">
+
+            Tidak ada trip.
+
+          </td>
+        </tr>
+        `;
 
       return;
 
     }
 
 
-    let html = '';
-
-
-    data.forEach(
-      function(item){
-
-        html +=
-
-          '<tr>' +
-
-          '<td><b>' +
-          esc(
-            item.awb
-          ) +
-          '</b></td>' +
-
-          '<td>' +
-          esc(
-            item.projectName ||
-            '-'
-          ) +
-          '</td>' +
-
-          '<td>' +
-          esc(
-            item.route ||
-            '-'
-          ) +
-          '</td>' +
-
-          '<td>' +
-          esc(
-            item.typeTrip ||
-            '-'
-          ) +
-          '</td>' +
-
-          '<td>' +
-          esc(
-            item.nopol ||
-            '-'
-          ) +
-          '</td>' +
-
-          '<td>' +
-          statusBadge(
-            item.tripStatus
-          ) +
-          '</td>' +
-
-          '<td>' +
-          performanceBadge(
-            item.performance
-          ) +
-          '</td>' +
-
-          '<td>' +
-
-          '<button ' +
-          'class="btn btn-light" ' +
-          'style="padding:6px 9px;font-size:10px" ' +
-          'onclick="openTrip(\'' +
-          jsQuote(
-            item.awb
-          ) +
-          '\')">' +
-
-          'Detail' +
-
-          '</button>' +
-
-          '</td>' +
-
-          '</tr>';
-
-      }
-    );
-
-
     tbody.innerHTML =
-      html;
+      data
+      .map(
+        trip => `
+
+        <tr
+          class="clickable"
+          onclick="openTrip(
+            '${escapeJs(
+              trip.awb ||
+              ''
+            )}'
+          )">
+
+
+          <td>
+
+            <strong>
+
+              ${escapeHtml(
+                trip.awb ||
+                trip.noAwb ||
+                '-'
+              )}
+
+            </strong>
+
+          </td>
+
+
+          <td>
+
+            ${escapeHtml(
+              trip.projectName ||
+              trip.project ||
+              '-'
+            )}
+
+          </td>
+
+
+          <td>
+
+            ${escapeHtml(
+              trip.route ||
+              buildRoute(trip) ||
+              '-'
+            )}
+
+          </td>
+
+
+          <td>
+
+            ${escapeHtml(
+              trip.typeTrip ||
+              '-'
+            )}
+
+          </td>
+
+
+          <td>
+
+            ${escapeHtml(
+              trip.nopol ||
+              '-'
+            )}
+
+          </td>
+
+
+          <td>
+
+            ${statusBadge(
+              trip.tripStatus ||
+              trip.status
+            )}
+
+          </td>
+
+
+          <td>
+
+            ${performanceBadge(
+              trip.performance ||
+              trip.slaPerformance
+            )}
+
+          </td>
+
+
+        </tr>
+
+        `
+      )
+      .join('');
+
 
   }catch(err){
 
     tbody.innerHTML =
+      `
+      <tr>
+        <td
+          colspan="7"
+          class="empty">
 
-      '<tr>' +
+          ${escapeHtml(
+            err.message
+          )}
 
-      '<td colspan="8">' +
+        </td>
+      </tr>
+      `;
 
-      '<div class="empty" style="color:#dc2626">' +
+  }finally{
 
-      esc(
-        err.message
-      ) +
-
-      '</div>' +
-
-      '</td>' +
-
-      '</tr>';
+    loading.classList.add(
+      'hidden'
+    );
 
   }
 
 }
 
 
-/* =====================================================
-   OPEN TRIP
-===================================================== */
+/* =========================================================
+OPEN TRIP
+========================================================= */
 
 function openTrip(
   awb
 ){
 
   document
-    .getElementById(
-      'searchAWBInput'
-    )
-    .value =
-      awb;
+  .getElementById(
+    'trackingAWB'
+  )
+  .value =
+    awb;
 
 
-  openPage(
-    'search'
+  const trackingButton =
+    document
+    .querySelectorAll(
+      '.nav button'
+    )[1];
+
+
+  showPage(
+    'tracking',
+    trackingButton
   );
 
 
-  searchAWB();
+  searchAWB(
+    awb
+  );
 
 }
 
 
-/* =====================================================
-   KENDALA
-===================================================== */
+/* =========================================================
+KENDALA
+========================================================= */
 
 async function loadKendala(){
-
-  if(
-    CACHE.kendala
-  ){
-
-    renderKendala(
-      CACHE.kendala
-    );
-
-    return;
-
-  }
-
 
   try{
 
     const result =
-      await apiGet(
-        'getKendala'
+      await api(
+        'getKendala',
+        {
+          token:TOKEN
+        }
       );
 
 
-    if(
-      !result ||
-      !result.success
-    ){
-
+    if(!result.success){
       return;
-
     }
 
 
-    CACHE.kendala =
+    const select =
+      document.getElementById(
+        'kendala'
+      );
+
+
+    select.innerHTML =
+      `
+      <option value="">
+        Tidak ada kendala
+      </option>
+      `;
+
+
+    (
       result.kendala ||
-      [];
-
-
-    renderKendala(
-      CACHE.kendala
-    );
-
-  }catch(err){
-
-    console.error(
-      err
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   RENDER KENDALA
-===================================================== */
-
-function renderKendala(
-  data
-){
-
-  const select =
-    document.getElementById(
-      'kendalaSelect'
-    );
-
-
-  if(!select)
-    return;
-
-
-  select.innerHTML =
-    '<option value="">' +
-    'Tidak ada kendala' +
-    '</option>';
-
-
-  (data || [])
+      []
+    )
     .forEach(
-      function(item){
+      value => {
 
         const option =
           document.createElement(
@@ -3958,11 +3755,11 @@ function renderKendala(
 
 
         option.value =
-          item;
+          value;
 
 
         option.textContent =
-          item;
+          value;
 
 
         select.appendChild(
@@ -3972,28 +3769,36 @@ function renderKendala(
       }
     );
 
+
+  }catch(err){
+
+    console.error(err);
+
+  }
+
 }
 
 
-/* =====================================================
-   UPDATE TRIP
-===================================================== */
+/* =========================================================
+LOAD UPDATE AWB
+========================================================= */
 
-async function loadUpdateTrip(){
+async function loadUpdateAWB(){
 
   const awb =
     document
-      .getElementById(
-        'updateAWB'
-      )
-      .value
-      .trim();
+    .getElementById(
+      'updateAWB'
+    )
+    .value
+    .trim();
 
 
   if(!awb){
 
-    toast(
-      'Masukkan Nomor AWB'
+    showUpdateAlert(
+      'Masukkan Nomor AWB.',
+      'error'
     );
 
     return;
@@ -4001,177 +3806,260 @@ async function loadUpdateTrip(){
   }
 
 
-  const box =
-    document.getElementById(
-      'updateTripInfo'
-    );
-
-
-  box.innerHTML =
-    '<div style="color:#64748b;font-size:11px">' +
-    'Loading...' +
-    '</div>';
-
-
   try{
 
     const result =
-      await apiGet(
-        'getTrip',
+      await api(
+        'searchAWB',
         {
+          token:TOKEN,
           awb:awb
         }
       );
 
 
-    if(
-      !result ||
-      !result.success
-    ){
+    if(!result.success){
 
       throw new Error(
-        result &&
-        result.error
-          ? result.error
-          : 'Trip tidak ditemukan'
+        result.error ||
+        'AWB tidak ditemukan'
       );
 
     }
 
 
     CURRENT_TRIP =
-      result.trip;
+      result.trip ||
+      null;
 
 
-    box.innerHTML =
+    if(!CURRENT_TRIP){
 
-      '<div style="background:#f8fafc;border-radius:9px;padding:12px">' +
+      throw new Error(
+        'Data trip tidak ditemukan.'
+      );
 
-      '<b>' +
-      esc(
-        result.trip.awb
-      ) +
-      '</b>' +
-
-      '<div style="font-size:11px;margin-top:5px">' +
-      esc(
-        result.trip.projectName ||
-        '-'
-      ) +
-      '</div>' +
-
-      '<div style="font-size:11px;margin-top:3px">' +
-      esc(
-        result.trip.route ||
-        '-'
-      ) +
-      '</div>' +
-
-      '<div style="margin-top:7px">' +
-      statusBadge(
-        result.trip.tripStatus
-      ) +
-      ' ' +
-      performanceBadge(
-        result.trip.performance
-      ) +
-      '</div>' +
-
-      '</div>';
-
-  }catch(err){
-
-    box.innerHTML =
-      '<div style="color:#dc2626;font-size:11px">' +
-      esc(
-        err.message
-      ) +
-      '</div>';
-
-  }
-
-}
+    }
 
 
-/* =====================================================
-   DEFAULT JAM
-===================================================== */
+    document
+    .getElementById(
+      'updateTripInfo'
+    )
+    .classList
+    .remove('hidden');
 
-function setDefaultJam(){
 
-  const input =
-    document.getElementById(
-      'jamUpdate'
+    document
+    .getElementById(
+      'updateTripText'
+    )
+    .innerHTML = `
+
+      <strong>
+        ${escapeHtml(
+          CURRENT_TRIP.awb ||
+          awb
+        )}
+      </strong>
+
+      <div class="page-sub">
+
+        ${escapeHtml(
+          CURRENT_TRIP.route ||
+          buildRoute(
+            CURRENT_TRIP
+          ) ||
+          '-'
+        )}
+
+      </div>
+
+
+      <div class="trip-mini-grid">
+
+
+        <div>
+
+          <div class="mini-label">
+            PROJECT
+          </div>
+
+          <div class="mini-value">
+            ${escapeHtml(
+              CURRENT_TRIP.projectName ||
+              '-'
+            )}
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div class="mini-label">
+            TYPE TRIP
+          </div>
+
+          <div class="mini-value">
+            ${escapeHtml(
+              CURRENT_TRIP.typeTrip ||
+              '-'
+            )}
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div class="mini-label">
+            NOPOL
+          </div>
+
+          <div class="mini-value">
+            ${escapeHtml(
+              CURRENT_TRIP.nopol ||
+              '-'
+            )}
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div class="mini-label">
+            ORIGIN
+          </div>
+
+          <div class="mini-value">
+            ${escapeHtml(
+              CURRENT_TRIP.origin ||
+              '-'
+            )}
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div class="mini-label">
+            DESTINATION
+          </div>
+
+          <div class="mini-value">
+            ${escapeHtml(
+              CURRENT_TRIP.lastDestination ||
+              CURRENT_TRIP.destination ||
+              '-'
+            )}
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div class="mini-label">
+            DRIVER
+          </div>
+
+          <div class="mini-value">
+            ${escapeHtml(
+              CURRENT_TRIP.driver1 ||
+              '-'
+            )}
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      <div class="mt row">
+
+        ${statusBadge(
+          CURRENT_TRIP.tripStatus
+        )}
+
+        ${performanceBadge(
+          CURRENT_TRIP.performance
+        )}
+
+      </div>
+
+    `;
+
+
+    document
+    .getElementById(
+      'updateTimeline'
+    )
+    .innerHTML =
+      renderTimeline(
+        result.timeline ||
+        []
+      );
+
+
+    showUpdateAlert(
+      'AWB ditemukan. Silakan input monitoring.',
+      'success'
     );
 
 
-  if(
-    input &&
-    !input.value
-  ){
+  }catch(err){
 
-    const d =
-      new Date();
+    CURRENT_TRIP = null;
 
 
-    const pad =
-      function(n){
-
-        return String(
-          n
-        ).padStart(
-          2,
-          '0'
-        );
-
-      };
+    document
+    .getElementById(
+      'updateTripInfo'
+    )
+    .classList
+    .add('hidden');
 
 
-    input.value =
+    document
+    .getElementById(
+      'updateTimeline'
+    )
+    .innerHTML =
+      `
+      <div class="empty">
+        AWB tidak ditemukan.
+      </div>
+      `;
 
-      d.getFullYear() +
 
-      '-' +
-
-      pad(
-        d.getMonth()+1
-      ) +
-
-      '-' +
-
-      pad(
-        d.getDate()
-      ) +
-
-      'T' +
-
-      pad(
-        d.getHours()
-      ) +
-
-      ':' +
-
-      pad(
-        d.getMinutes()
-      );
+    showUpdateAlert(
+      err.message,
+      'error'
+    );
 
   }
 
 }
 
 
-/* =====================================================
-   PHOTO
-===================================================== */
+/* =========================================================
+PHOTO PREVIEW
+========================================================= */
 
-function previewPhoto(e){
+function previewPhoto(
+  event
+){
 
   const file =
-    e.target.files &&
-    e.target.files[0];
+    event.target.files &&
+    event.target.files[0];
 
 
-  const img =
+  const preview =
     document.getElementById(
       'photoPreview'
     );
@@ -4179,9 +4067,14 @@ function previewPhoto(e){
 
   if(!file){
 
-    img.classList.add(
-      'hidden'
-    );
+    PHOTO_BASE64 =
+      '';
+
+    PHOTO_MIME =
+      '';
+
+    preview.innerHTML =
+      'Belum ada foto';
 
     return;
 
@@ -4189,27 +4082,22 @@ function previewPhoto(e){
 
 
   if(
-    file.size >
-    8 * 1024 * 1024
+    !file.type.startsWith(
+      'image/'
+    )
   ){
 
-    toast(
-      'Ukuran foto maksimal 8 MB'
-    );
-
-
-    e.target.value =
-      '';
-
-
-    img.classList.add(
-      'hidden'
-    );
-
+    preview.innerHTML =
+      'File harus berupa gambar.';
 
     return;
 
   }
+
+
+  PHOTO_MIME =
+    file.type ||
+    'image/jpeg';
 
 
   const reader =
@@ -4217,14 +4105,19 @@ function previewPhoto(e){
 
 
   reader.onload =
-    function(event){
+    function(e){
 
-      img.src =
-        event.target.result;
+      PHOTO_BASE64 =
+        e.target.result;
 
-      img.classList.remove(
-        'hidden'
-      );
+
+      preview.innerHTML =
+        `
+        <img
+          src="${escapeAttr(
+            PHOTO_BASE64
+          )}">
+        `;
 
     };
 
@@ -4236,25 +4129,52 @@ function previewPhoto(e){
 }
 
 
-/* =====================================================
-   SAVE MONITORING
-===================================================== */
+/* =========================================================
+SAVE UPDATE
+========================================================= */
 
-async function saveMonitoring(){
+async function saveUpdate(){
 
   const awb =
     document
-      .getElementById(
-        'updateAWB'
-      )
-      .value
-      .trim();
+    .getElementById(
+      'updateAWB'
+    )
+    .value
+    .trim();
+
+
+  const kendala =
+    document
+    .getElementById(
+      'kendala'
+    )
+    .value
+    .trim();
+
+
+  const keterangan =
+    document
+    .getElementById(
+      'keterangan'
+    )
+    .value
+    .trim();
+
+
+  const jamInput =
+    document
+    .getElementById(
+      'jamUpdate'
+    )
+    .value;
 
 
   if(!awb){
 
-    toast(
-      'Nomor AWB wajib diisi'
+    showUpdateAlert(
+      'Nomor AWB wajib diisi.',
+      'error'
     );
 
     return;
@@ -4262,361 +4182,329 @@ async function saveMonitoring(){
   }
 
 
-  const jam =
-    document
-      .getElementById(
-        'jamUpdate'
-      )
-      .value;
+  if(!CURRENT_TRIP){
+
+    await loadUpdateAWB();
+
+    if(!CURRENT_TRIP){
+
+      return;
+
+    }
+
+  }
 
 
-  const kendala =
-    document
-      .getElementById(
-        'kendalaSelect'
-      )
-      .value;
-
-
-  const keterangan =
-    document
-      .getElementById(
-        'keterangan'
-      )
-      .value
-      .trim();
-
-
-  const input =
+  const saveButton =
     document.getElementById(
-      'photoInput'
+      'saveButton'
     );
 
 
-  const file =
-    input.files &&
-    input.files[0];
-
-
-  const btn =
-    document.getElementById(
-      'saveUpdateBtn'
-    );
-
-
-  btn.disabled =
+  saveButton.disabled =
     true;
 
 
-  loading(
-    true,
-    'Menyimpan monitoring...'
-  );
+  saveButton.textContent =
+    'Menyimpan...';
+
+
+  let jamUpdate =
+    new Date();
+
+
+  if(jamInput){
+
+    jamUpdate =
+      new Date(
+        jamInput
+      );
+
+  }
 
 
   try{
 
-    let photoUrl =
+    let fotoUrl =
       '';
 
 
-    /* FOTO */
+    if(PHOTO_BASE64){
 
-    if(file){
-
-      loading(
-        true,
-        'Upload foto...'
-      );
-
-
-      const base64 =
-        await fileToBase64(
-          file
-        );
-
-
-      const upload =
-        await apiPost(
+      const photoResult =
+        await api(
           'uploadPhoto',
           {
+            token:TOKEN,
 
-            awb:
-              awb,
+            awb:awb,
 
             kendala:
               kendala ||
               'UPDATE',
 
             base64:
-              base64,
+              PHOTO_BASE64,
 
             mimeType:
-              file.type
+              PHOTO_MIME
 
-          }
+          },
+          'POST'
         );
 
 
       if(
-        !upload ||
-        !upload.success
+        !photoResult.success
       ){
 
         throw new Error(
-          upload &&
-          upload.error
-            ? upload.error
-            : 'Upload foto gagal'
+          photoResult.error ||
+          'Upload foto gagal'
         );
 
       }
 
 
-      photoUrl =
-        upload.url ||
+      fotoUrl =
+        photoResult.url ||
+        photoResult.fileUrl ||
         '';
 
     }
 
 
-    /* SAVE */
-
-    loading(
-      true,
-      'Menyimpan data...'
-    );
-
-
     const result =
-      await apiPost(
+      await api(
         'saveMonitoring',
         {
 
-          awb:
-            awb,
+          token:TOKEN,
+
+          awb:awb,
 
           jamUpdate:
-            jam
-              ? new Date(
-                  jam
-                ).toISOString()
-              : new Date()
-                  .toISOString(),
+            jamUpdate.toISOString(),
 
-          kendala:
-            kendala,
+          kendala:kendala,
 
-          keterangan:
-            keterangan,
+          keterangan:keterangan,
 
-          foto:
-            photoUrl
+          foto:fotoUrl
 
-        }
+        },
+        'POST'
       );
 
 
-    if(
-      !result ||
-      !result.success
-    ){
+    if(!result.success){
 
       throw new Error(
-        result &&
-        result.error
-          ? result.error
-          : 'Gagal menyimpan monitoring'
+        result.error ||
+        'Gagal menyimpan monitoring'
       );
 
     }
 
 
-    toast(
-      'Monitoring berhasil disimpan'
+    showUpdateAlert(
+      'Monitoring berhasil disimpan.',
+      'success'
     );
 
 
-    document
-      .getElementById(
-        'keterangan'
-      )
-      .value =
+    PHOTO_BASE64 =
+      '';
+
+    PHOTO_MIME =
       '';
 
 
     document
-      .getElementById(
-        'photoInput'
-      )
-      .value =
+    .getElementById(
+      'photoInput'
+    )
+    .value =
       '';
 
 
     document
-      .getElementById(
-        'photoPreview'
-      )
-      .classList
-      .add(
-        'hidden'
-      );
+    .getElementById(
+      'photoPreview'
+    )
+    .innerHTML =
+      'Belum ada foto';
 
 
-    CACHE.dashboard =
-      null;
+    document
+    .getElementById(
+      'keterangan'
+    )
+    .value =
+      '';
 
 
-    await loadUpdateTrip();
+    await loadUpdateAWB();
+
 
   }catch(err){
 
-    toast(
-      err.message
+    showUpdateAlert(
+      err.message,
+      'error'
     );
 
   }finally{
 
-    btn.disabled =
+    saveButton.disabled =
       false;
 
-    loading(
-      false
-    );
+    saveButton.textContent =
+      'Simpan Monitoring';
 
   }
 
 }
 
 
-/* =====================================================
-   BASE64
-===================================================== */
-
-function fileToBase64(
-  file
-){
-
-  return new Promise(
-    function(resolve,reject){
-
-      const reader =
-        new FileReader();
-
-
-      reader.onload =
-        function(){
-
-          resolve(
-            reader.result
-          );
-
-        };
-
-
-      reader.onerror =
-        reject;
-
-
-      reader.readAsDataURL(
-        file
-      );
-
-    }
-  );
-
-}
-
-
-/* =====================================================
-   REPORT
-===================================================== */
+/* =========================================================
+REPORT
+========================================================= */
 
 async function loadReport(){
+
+  const loading =
+    document.getElementById(
+      'reportLoading'
+    );
+
+
+  const content =
+    document.getElementById(
+      'reportContent'
+    );
+
+
+  loading.classList.remove(
+    'hidden'
+  );
+
+
+  content.classList.add(
+    'hidden'
+  );
+
 
   try{
 
     const result =
-      await apiGet(
-        'getReport'
+      await api(
+        'getReport',
+        {
+          token:TOKEN
+        }
       );
 
 
-    if(
-      !result ||
-      !result.success
-    ){
+    if(!result.success){
 
       throw new Error(
-        result &&
-        result.error
-          ? result.error
-          : 'Report gagal dimuat'
+        result.error ||
+        'Report gagal dimuat'
       );
 
     }
 
 
-    const r =
+    const report =
       result.report ||
       {};
 
 
-    renderMap(
-      'reportProjects',
-      r.projects
+    setText(
+      'reportTotal',
+      report.total || 0
     );
 
 
-    renderMap(
-      'reportPerformance',
-      r.performance
-    );
-
-
-    renderMap(
+    renderObject(
       'reportType',
-      r.typeTrip
+      report.typeTrip
     );
 
 
-    renderMap(
+    renderObject(
+      'reportPerformance',
+      report.performance
+    );
+
+
+    renderObject(
+      'reportProjects',
+      report.projects
+    );
+
+
+    renderObject(
       'reportStatus',
-      r.tripStatus
+      report.tripStatus
     );
+
+
+    loading.classList.add(
+      'hidden'
+    );
+
+
+    content.classList.remove(
+      'hidden'
+    );
+
 
   }catch(err){
 
-    toast(
-      err.message
-    );
+    loading.innerHTML =
+      `
+      <div class="alert alert-error">
+
+        ${escapeHtml(
+          err.message
+        )}
+
+      </div>
+      `;
 
   }
 
 }
 
 
-/* =====================================================
-   RENDER MAP
-===================================================== */
+/* =========================================================
+REPORT OBJECT
+========================================================= */
 
-function renderMap(
-  elementId,
-  map
+function renderObject(
+  id,
+  object
 ){
 
   const el =
     document.getElementById(
-      elementId
+      id
     );
 
 
   if(
-    !map
+    !object ||
+    typeof object !== 'object'
   ){
 
     el.innerHTML =
-      '<div class="empty">Tidak ada data.</div>';
+      `
+      <div class="empty">
+        Tidak ada data.
+      </div>
+      `;
 
     return;
 
@@ -4625,126 +4513,76 @@ function renderMap(
 
   const entries =
     Object.entries(
-      map
+      object
+    )
+    .sort(
+      (a,b) =>
+        Number(b[1]) -
+        Number(a[1])
     );
 
 
-  if(
-    !entries.length
-  ){
+  if(!entries.length){
 
     el.innerHTML =
-      '<div class="empty">Tidak ada data.</div>';
+      `
+      <div class="empty">
+        Tidak ada data.
+      </div>
+      `;
 
     return;
 
   }
 
 
-  entries.sort(
-    function(a,b){
-
-      return (
-        Number(b[1]) -
-        Number(a[1])
-      );
-
-    }
-  );
-
-
-  let html = '';
-
-
-  entries.forEach(
-    function(item){
-
-      html +=
-
-        '<div style="' +
-        'display:flex;' +
-        'justify-content:space-between;' +
-        'padding:8px 0;' +
-        'border-bottom:1px solid #e2e8f0">' +
-
-        '<span style="font-size:11px">' +
-        esc(
-          item[0]
-        ) +
-        '</span>' +
-
-        '<b style="font-size:12px">' +
-        number(
-          item[1]
-        ) +
-        '</b>' +
-
-        '</div>';
-
-    }
-  );
-
-
   el.innerHTML =
-    html;
+    entries
+    .map(
+      ([key,value]) => `
+
+      <div
+        class="spread"
+        style="
+          padding:9px 0;
+          border-bottom:1px solid #eee
+        ">
+
+        <span>
+          ${escapeHtml(
+            key
+          )}
+        </span>
+
+        <strong>
+          ${escapeHtml(
+            value
+          )}
+        </strong>
+
+      </div>
+
+      `
+    )
+    .join('');
 
 }
 
 
-/* =====================================================
-   INFO
-===================================================== */
-
-function info(
-  label,
-  value
-){
-
-  return
-
-    '<div class="info-item">' +
-
-    '<div class="info-label">' +
-    esc(
-      label
-    ) +
-    '</div>' +
-
-    '<div class="info-value">' +
-    esc(
-      value ||
-      '-'
-    ) +
-    '</div>' +
-
-    '</div>';
-
-}
-
-
-/* =====================================================
-   STATUS
-===================================================== */
+/* =========================================================
+BADGES
+========================================================= */
 
 function statusBadge(
   status
 ){
 
-  if(
-    !status
-  ){
-
-    return '';
-
-  }
-
-
-  const normalized =
+  const s =
     String(
-      status
+      status ||
+      ''
     )
-    .toUpperCase()
-    .trim();
+    .toUpperCase();
 
 
   let cls =
@@ -4752,8 +4590,20 @@ function statusBadge(
 
 
   if(
-    normalized ===
-    'ON TRIP'
+    s === 'ON TRIP' ||
+    s === 'ONGOING' ||
+    s === 'IN TRANSIT'
+  ){
+
+    cls =
+      'badge-green';
+
+  }
+
+
+  if(
+    s === 'DELIVERED' ||
+    s === 'COMPLETED'
   ){
 
     cls =
@@ -4763,19 +4613,9 @@ function statusBadge(
 
 
   if(
-    normalized ===
-    'DELIVERED'
-  ){
-
-    cls =
-      'badge-green';
-
-  }
-
-
-  if(
-    normalized ===
-    'DELAY'
+    s === 'DELAY' ||
+    s === 'KENDALA' ||
+    s === 'LATE'
   ){
 
     cls =
@@ -4785,8 +4625,7 @@ function statusBadge(
 
 
   if(
-    normalized ===
-    'NOT STARTED'
+    s === 'NOT STARTED'
   ){
 
     cls =
@@ -4795,44 +4634,32 @@ function statusBadge(
   }
 
 
-  return
+  return `
 
-    '<span class="badge ' +
-    cls +
-    '">' +
+  <span class="badge ${cls}">
 
-    esc(
-      status
-    ) +
+    ${escapeHtml(
+      status ||
+      '-'
+    )}
 
-    '</span>';
+  </span>
+
+  `;
 
 }
 
-
-/* =====================================================
-   PERFORMANCE
-===================================================== */
 
 function performanceBadge(
   performance
 ){
 
-  if(
-    !performance
-  ){
-
-    return '';
-
-  }
-
-
-  const normalized =
+  const p =
     String(
-      performance
+      performance ||
+      ''
     )
-    .toUpperCase()
-    .trim();
+    .toUpperCase();
 
 
   let cls =
@@ -4840,8 +4667,7 @@ function performanceBadge(
 
 
   if(
-    normalized ===
-    'ON TIME'
+    p === 'ON TIME'
   ){
 
     cls =
@@ -4851,8 +4677,7 @@ function performanceBadge(
 
 
   if(
-    normalized ===
-    'LATE'
+    p === 'LATE'
   ){
 
     cls =
@@ -4861,37 +4686,123 @@ function performanceBadge(
   }
 
 
-  return
+  return `
 
-    '<span class="badge ' +
-    cls +
-    '">' +
+  <span class="badge ${cls}">
 
-    esc(
-      performance
-    ) +
+    ${escapeHtml(
+      performance ||
+      '-'
+    )}
 
-    '</span>';
+  </span>
+
+  `;
 
 }
 
 
-/* =====================================================
-   FIELD
-===================================================== */
+/* =========================================================
+ALERT
+========================================================= */
+
+function showLoginAlert(
+  message,
+  type
+){
+
+  document
+  .getElementById(
+    'loginAlert'
+  )
+  .innerHTML =
+    `
+
+    <div class="
+      alert
+      ${
+        type === 'success'
+        ? 'alert-success'
+        : 'alert-error'
+      }
+    ">
+
+      ${escapeHtml(
+        message
+      )}
+
+    </div>
+
+    `;
+
+}
+
+
+function showUpdateAlert(
+  message,
+  type
+){
+
+  document
+  .getElementById(
+    'updateAlert'
+  )
+  .innerHTML =
+    `
+
+    <div class="
+      alert
+      ${
+        type === 'success'
+        ? 'alert-success'
+        : 'alert-error'
+      }
+    ">
+
+      ${escapeHtml(
+        message
+      )}
+
+    </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+HELPERS
+========================================================= */
+
+function setText(
+  id,
+  value
+){
+
+  const el =
+    document.getElementById(
+      id
+    );
+
+
+  if(el){
+
+    el.textContent =
+      value == null
+      ? '-'
+      : value;
+
+  }
+
+}
+
 
 function getField(
   obj,
   names
 ){
 
-  if(
-    !obj
-  ){
-
-    return '';
-
-  }
+  if(!obj)return '';
 
 
   const keys =
@@ -4901,37 +4812,28 @@ function getField(
 
 
   for(
-    let i=0;
-    i<names.length;
-    i++
+    const name of names
   ){
 
-    const target =
-      normalizeKey(
-        names[i]
+    const wanted =
+      normalizeHeader(
+        name
       );
 
 
-    const key =
-      keys.find(
-        function(k){
-
-          return (
-            normalizeKey(
-              k
-            ) ===
-            target
-          );
-
-        }
-      );
-
-
-    if(
-      key !== undefined
+    for(
+      const key of keys
     ){
 
-      return obj[key];
+      if(
+        normalizeHeader(
+          key
+        ) === wanted
+      ){
+
+        return obj[key];
+
+      }
 
     }
 
@@ -4943,70 +4845,36 @@ function getField(
 }
 
 
-/* =====================================================
-   NORMALIZE KEY
-===================================================== */
-
-function normalizeKey(
+function normalizeHeader(
   value
 ){
 
   return String(
-    value == null
-      ? ''
-      : value
+    value ||
+    ''
   )
+  .trim()
   .toLowerCase()
   .replace(
-    /<br\s*\/?>/gi,
-    ' '
-  )
-  .replace(
-    /[_()-]/g,
+    /[_-]/g,
     ' '
   )
   .replace(
     /\s+/g,
     ' '
-  )
-  .trim();
-
-}
-
-
-/* =====================================================
-   NUMBER
-===================================================== */
-
-function number(
-  value
-){
-
-  const n =
-    Number(
-      value || 0
-    );
-
-
-  return n.toLocaleString(
-    'id-ID'
   );
 
 }
 
 
-/* =====================================================
-   ESCAPE
-===================================================== */
-
-function esc(
+function escapeHtml(
   value
 ){
 
   return String(
     value == null
-      ? ''
-      : value
+    ? ''
+    : value
   )
   .replace(
     /&/g,
@@ -5032,26 +4900,18 @@ function esc(
 }
 
 
-/* =====================================================
-   ESC ATTRIBUTE
-===================================================== */
-
-function escAttr(
+function escapeAttr(
   value
 ){
 
-  return esc(
+  return escapeHtml(
     value
   );
 
 }
 
 
-/* =====================================================
-   JS QUOTE
-===================================================== */
-
-function jsQuote(
+function escapeJs(
   value
 ){
 
@@ -5066,101 +4926,17 @@ function jsQuote(
   .replace(
     /'/g,
     "\\'"
+  )
+  .replace(
+    /\n/g,
+    '\\n'
+  )
+  .replace(
+    /\r/g,
+    '\\r'
   );
 
 }
-
-
-/* =====================================================
-   TOAST
-===================================================== */
-
-let toastTimer =
-  null;
-
-
-function toast(
-  message
-){
-
-  const el =
-    document.getElementById(
-      'toast'
-    );
-
-
-  el.textContent =
-    message ||
-    'Selesai';
-
-
-  el.classList.add(
-    'show'
-  );
-
-
-  clearTimeout(
-    toastTimer
-  );
-
-
-  toastTimer =
-    setTimeout(
-      function(){
-
-        el.classList.remove(
-          'show'
-        );
-
-      },
-      3000
-    );
-
-}
-
-
-/* =====================================================
-   LOADING
-===================================================== */
-
-function loading(
-  show,
-  text
-){
-
-  const el =
-    document.getElementById(
-      'loading'
-    );
-
-
-  const txt =
-    document.getElementById(
-      'loadingText'
-    );
-
-
-  if(
-    text
-  ){
-
-    txt.textContent =
-      text;
-
-  }
-
-
-  el.style.display =
-    show
-      ? 'flex'
-      : 'none';
-
-}
-
-
-/* =====================================================
-   END
-===================================================== */
 
 </script>
 
