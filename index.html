@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SERYU TC Monitoring</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="loginPage" class="login-page">
+  <div class="login-card">
+    <div class="brand">
+      <div class="brand-icon">S</div>
+      <div>
+        <h1>SERYU</h1>
+        <span>TC MONITORING</span>
+      </div>
+    </div>
+
+    <h2>Welcome Back</h2>
+    <p class="muted">Login untuk mengakses monitoring</p>
+
+    <form id="loginForm">
+      <label>Username</label>
+      <input id="username" type="text" autocomplete="username"
+             placeholder="Masukkan username" required>
+
+      <label>Password</label>
+      <input id="password" type="password"
+             autocomplete="current-password"
+             placeholder="Masukkan password" required>
+
+      <button class="btn primary full" type="submit">
+        <span id="loginText">Login</span>
+      </button>
+    </form>
+
+    <div id="loginError" class="error-box hidden"></div>
+  </div>
+</div>
+
+
+<div id="app" class="app hidden">
+
+  <aside class="sidebar">
+
+    <div class="side-brand">
+      <div class="brand-icon">S</div>
+      <div>
+        <strong>SERYU</strong>
+        <small>TC MONITORING</small>
+      </div>
+    </div>
+
+    <nav>
+
+      <button class="nav-item active" data-page="dashboard">
+        <span>⌂</span> Dashboard
+      </button>
+
+      <button class="nav-item" data-page="live">
+        <span>🚚</span> Live Trip
+      </button>
+
+      <button class="nav-item" data-page="search">
+        <span>⌕</span> Search AWB
+      </button>
+
+      <button class="nav-item" data-page="monitoring">
+        <span>✎</span> Update Monitoring
+      </button>
+
+      <button class="nav-item" data-page="kendala">
+        <span>⚠</span> Kendala
+      </button>
+
+      <button class="nav-item" data-page="report">
+        <span>▥</span> Report
+      </button>
+
+    </nav>
+
+    <div class="side-user">
+      <div class="avatar" id="userAvatar">TC</div>
+      <div class="user-info">
+        <strong id="userName">User</strong>
+        <small id="userRole">TC</small>
+      </div>
+      <button id="logoutBtn" class="logout">↪</button>
+    </div>
+
+  </aside>
+
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <div>
+        <h2 id="pageTitle">Dashboard</h2>
+        <div id="pageSubtitle" class="muted">
+          Logistics Control Tower
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <span id="clock"></span>
+        <button id="refreshBtn" class="btn ghost">↻ Refresh</button>
+      </div>
+
+    </header>
+
+
+    <!-- DASHBOARD -->
+
+    <section id="page-dashboard" class="page active">
+
+      <div class="stats-grid">
+
+        <div class="stat-card">
+          <div class="stat-label">TOTAL TRIP</div>
+          <div id="statTotal" class="stat-value">-</div>
+          <div class="stat-icon">🚚</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">ON TRIP</div>
+          <div id="statOnTrip" class="stat-value">-</div>
+          <div class="stat-icon">▶</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">DELIVERED</div>
+          <div id="statDelivered" class="stat-value">-</div>
+          <div class="stat-icon">✓</div>
+        </div>
+
+        <div class="stat-card danger">
+          <div class="stat-label">DELAY</div>
+          <div id="statDelay" class="stat-value">-</div>
+          <div class="stat-icon">⚠</div>
+        </div>
+
+      </div>
+
+
+      <div class="section-head">
+        <div>
+          <h3>Project Summary</h3>
+          <p class="muted">Ringkasan performa per project</p>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>Total</th>
+                <th>On Trip</th>
+                <th>Delivered</th>
+                <th>Late</th>
+              </tr>
+            </thead>
+            <tbody id="projectTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- LIVE -->
+
+    <section id="page-live" class="page">
+
+      <div class="filter-card">
+
+        <input id="liveSearch"
+               placeholder="Cari AWB / Nopol / Project...">
+
+        <select id="liveProject">
+          <option value="">Semua Project</option>
+        </select>
+
+        <select id="liveStatus">
+          <option value="">Semua Status</option>
+          <option>ON TRIP</option>
+          <option>DELIVERED</option>
+          <option>NOT STARTED</option>
+        </select>
+
+        <select id="livePerformance">
+          <option value="">Semua Performance</option>
+          <option>ON TIME</option>
+          <option>LATE</option>
+        </select>
+
+        <button id="liveFilterBtn" class="btn primary">
+          Filter
+        </button>
+
+      </div>
+
+      <div id="liveContainer" class="trip-grid"></div>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <section id="page-search" class="page">
+
+      <div class="search-box">
+
+        <input id="awbSearch"
+               placeholder="Masukkan Nomor AWB">
+
+        <button id="searchBtn" class="btn primary">
+          Search AWB
+        </button>
+
+      </div>
+
+      <div id="searchResult"></div>
+
+    </section>
+
+
+    <!-- MONITORING -->
+
+    <section id="page-monitoring" class="page">
+
+      <div class="monitor-layout">
+
+        <div class="panel">
+
+          <div class="panel-title">
+            <h3>Update Monitoring</h3>
+            <span class="badge">TC</span>
+          </div>
+
+          <label>Nomor AWB</label>
+
+          <div class="input-row">
+            <input id="monitorAWB"
+                   placeholder="Masukkan AWB">
+
+            <button id="loadMonitorBtn"
+                    class="btn ghost">
+              Cari
+            </button>
+          </div>
+
+          <div id="monitorTripInfo" class="trip-mini hidden"></div>
+
+          <label>Jam Update</label>
+
+          <select id="jamUpdate">
+            <option value="">Pilih Jam</option>
+            <option>00:00</option>
+            <option>02:00</option>
+            <option>04:00</option>
+            <option>06:00</option>
+            <option>08:00</option>
+            <option>10:00</option>
+            <option>12:00</option>
+            <option>14:00</option>
+            <option>16:00</option>
+            <option>18:00</option>
+            <option>20:00</option>
+            <option>22:00</option>
+            <option value="MANUAL">Manual</option>
+          </select>
+
+          <label>Kendala</label>
+
+          <select id="kendalaSelect">
+            <option value="">Tidak ada kendala</option>
+          </select>
+
+          <label>Keterangan</label>
+
+          <textarea id="monitorKeterangan"
+                    rows="4"
+                    placeholder="Masukkan update / posisi / keterangan"></textarea>
+
+          <label>Foto</label>
+
+          <input id="monitorPhoto"
+                 type="file"
+                 accept="image/*">
+
+          <div id="photoPreview" class="photo-preview hidden"></div>
+
+          <button id="saveMonitorBtn"
+                  class="btn primary full">
+            Simpan Monitoring
+          </button>
+
+          <div id="monitorMessage"></div>
+
+        </div>
+
+
+        <div class="panel">
+
+          <div class="panel-title">
+            <h3>Timeline</h3>
+          </div>
+
+          <div id="monitorTimeline"
+               class="timeline empty">
+            Cari AWB untuk melihat timeline
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- KENDALA -->
+
+    <section id="page-kendala" class="page">
+
+      <div class="panel small-panel">
+
+        <h3>Master Kendala</h3>
+
+        <p class="muted">
+          Tambahkan kendala yang dapat dipilih TC.
+        </p>
+
+        <div class="input-row">
+
+          <input id="newKendala"
+                 placeholder="Contoh: Unit Breakdown">
+
+          <button id="saveKendalaBtn"
+                  class="btn primary">
+            Tambah
+          </button>
+
+        </div>
+
+        <div id="kendalaList" class="tag-list"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- REPORT -->
+
+    <section id="page-report" class="page">
+
+      <div id="reportContainer"
+           class="report-grid"></div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
