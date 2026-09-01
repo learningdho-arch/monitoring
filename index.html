@@ -1,377 +1,3588 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>SERYU TC Monitoring</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SERYU TC Monitoring V2</title>
+
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;background:#f4f7fb;color:#172033}
+button,input,select,textarea{font:inherit}
+
+:root{
+  --primary:#2563eb;
+  --primary-dark:#1d4ed8;
+  --success:#16a34a;
+  --danger:#dc2626;
+  --warning:#d97706;
+  --muted:#64748b;
+  --border:#e2e8f0;
+  --card:#fff;
+  --sidebar:#0f172a;
+}
+
+.hidden{display:none!important}
+
+/* LOGIN */
+#loginPage{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:linear-gradient(135deg,#0f172a,#1e3a8a);
+}
+
+.login-box{
+  width:100%;
+  max-width:400px;
+  background:#fff;
+  border-radius:20px;
+  padding:32px;
+  box-shadow:0 25px 70px rgba(0,0,0,.25);
+}
+
+.logo{
+  width:54px;
+  height:54px;
+  border-radius:15px;
+  background:var(--primary);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:bold;
+  margin-bottom:18px;
+}
+
+.login-box h1{margin:0 0 7px;font-size:25px}
+.login-box p{margin:0 0 25px;color:var(--muted)}
+
+.form-group{margin-bottom:15px}
+.form-group label{
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  margin-bottom:7px;
+}
+
+input,select,textarea{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:11px 12px;
+  outline:none;
+  background:#fff;
+}
+
+input:focus,select:focus,textarea:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(37,99,235,.1);
+}
+
+textarea{min-height:90px;resize:vertical}
+
+.btn{
+  border:0;
+  border-radius:10px;
+  padding:11px 16px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-dark)}
+.btn-success{background:var(--success);color:#fff}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-light{background:#f1f5f9;color:#334155}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+
+.btn-block{width:100%}
+
+/* APP */
+#app{
+  min-height:100vh;
+  display:flex;
+}
+
+.sidebar{
+  width:230px;
+  background:var(--sidebar);
+  color:#fff;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  padding:20px 14px;
+  z-index:20;
+}
+
+.brand{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:5px 8px 25px;
+}
+
+.brand-icon{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:var(--primary);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+}
+
+.brand-text strong{display:block;font-size:15px}
+.brand-text span{font-size:11px;color:#94a3b8}
+
+.nav-title{
+  color:#64748b;
+  font-size:10px;
+  font-weight:bold;
+  margin:10px 10px 7px;
+  text-transform:uppercase;
+}
+
+.nav-btn{
+  width:100%;
+  background:transparent;
+  color:#cbd5e1;
+  border:0;
+  text-align:left;
+  padding:12px;
+  border-radius:9px;
+  cursor:pointer;
+  margin-bottom:3px;
+}
+
+.nav-btn:hover,.nav-btn.active{
+  background:#1e293b;
+  color:#fff;
+}
+
+.user-box{
+  position:absolute;
+  left:14px;
+  right:14px;
+  bottom:15px;
+  padding:12px;
+  border-top:1px solid #263244;
+}
+
+.user-name{font-size:13px;font-weight:bold}
+.user-role{font-size:11px;color:#94a3b8;margin-top:3px}
+
+.main{
+  margin-left:230px;
+  width:calc(100% - 230px);
+}
+
+.topbar{
+  height:64px;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 25px;
+}
+
+.topbar h2{font-size:18px;margin:0}
+.topbar-right{display:flex;align-items:center;gap:10px}
+
+.content{
+  padding:24px;
+  max-width:1500px;
+}
+
+/* PAGE */
+.page{display:none}
+.page.active{display:block}
+
+.page-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.page-head h2{margin:0;font-size:22px}
+.page-head p{margin:5px 0 0;color:var(--muted);font-size:13px}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:18px;
+}
+
+.card-title{
+  font-size:15px;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+/* STATS */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin-bottom:20px;
+}
+
+.stat{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:18px;
+}
+
+.stat-label{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.stat-value{
+  font-size:27px;
+  font-weight:bold;
+  margin-top:8px;
+}
+
+.stat-blue{border-left:4px solid var(--primary)}
+.stat-green{border-left:4px solid var(--success)}
+.stat-red{border-left:4px solid var(--danger)}
+.stat-orange{border-left:4px solid var(--warning)}
+
+/* GRID */
+.grid-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.grid-4{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+/* SEARCH */
+.search-row{
+  display:flex;
+  gap:10px;
+}
+
+.search-row input{flex:1}
+
+/* BADGES */
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+.badge-blue{background:#dbeafe;color:#1d4ed8}
+.badge-green{background:#dcfce7;color:#15803d}
+.badge-red{background:#fee2e2;color:#b91c1c}
+.badge-orange{background:#ffedd5;color:#c2410c}
+.badge-gray{background:#f1f5f9;color:#475569}
+
+/* TRIP DETAIL */
+.trip-header{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:flex-start;
+}
+
+.awb{
+  font-size:23px;
+  font-weight:bold;
+  color:#0f172a;
+}
+
+.route{
+  font-size:14px;
+  color:#475569;
+  margin-top:8px;
+}
+
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.info-item{
+  background:#f8fafc;
+  border-radius:10px;
+  padding:12px;
+}
+
+.info-label{
+  font-size:10px;
+  text-transform:uppercase;
+  color:#94a3b8;
+  margin-bottom:5px;
+}
+
+.info-value{
+  font-size:13px;
+  font-weight:bold;
+  word-break:break-word;
+}
+
+/* TIMELINE */
+.timeline{
+  position:relative;
+  margin-top:10px;
+  padding-left:35px;
+}
+
+.timeline:before{
+  content:"";
+  position:absolute;
+  left:9px;
+  top:4px;
+  bottom:4px;
+  width:2px;
+  background:#dbe3ee;
+}
+
+.timeline-item{
+  position:relative;
+  padding-bottom:22px;
+}
+
+.timeline-dot{
+  position:absolute;
+  left:-32px;
+  top:2px;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:var(--primary);
+  border:4px solid #dbeafe;
+}
+
+.timeline-item.issue .timeline-dot{
+  background:var(--danger);
+  border-color:#fee2e2;
+}
+
+.timeline-title{
+  font-weight:bold;
+  font-size:14px;
+}
+
+.timeline-time{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.timeline-desc{
+  margin-top:7px;
+  background:#f8fafc;
+  padding:10px;
+  border-radius:8px;
+  font-size:12px;
+}
+
+.timeline-photo{
+  margin-top:8px;
+  max-width:180px;
+  max-height:120px;
+  border-radius:8px;
+  object-fit:cover;
+}
+
+/* TABLE */
+.table-wrap{
+  overflow:auto;
+  border:1px solid var(--border);
+  border-radius:10px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:900px;
+}
+
+th,td{
+  padding:11px 12px;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+  font-size:12px;
+}
+
+th{
+  background:#f8fafc;
+  color:#475569;
+  font-size:11px;
+  text-transform:uppercase;
+}
+
+tr:hover td{background:#f8fafc}
+
+/* UPDATE */
+.upload-box{
+  border:2px dashed #cbd5e1;
+  border-radius:12px;
+  padding:20px;
+  text-align:center;
+  background:#f8fafc;
+}
+
+.photo-preview{
+  max-width:180px;
+  max-height:150px;
+  border-radius:10px;
+  margin-top:10px;
+}
+
+/* TOAST */
+#toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:100;
+  min-width:260px;
+  max-width:380px;
+  background:#0f172a;
+  color:#fff;
+  padding:13px 16px;
+  border-radius:10px;
+  display:none;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  font-size:13px;
+}
+
+#toast.show{display:block}
+
+/* LOADING */
+#loading{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.7);
+  z-index:90;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.loader{
+  width:35px;
+  height:35px;
+  border:4px solid #dbeafe;
+  border-top-color:var(--primary);
+  border-radius:50%;
+  animation:spin .7s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+/* MOBILE */
+@media(max-width:1000px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .info-grid{grid-template-columns:repeat(2,1fr)}
+  .grid-3,.grid-4{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:700px){
+  .sidebar{
+    width:64px;
+    padding:12px 8px;
+  }
+
+  .brand-text,
+  .nav-title,
+  .nav-btn span,
+  .user-box{
+    display:none;
+  }
+
+  .brand{justify-content:center}
+  .brand-icon{margin:auto}
+
+  .nav-btn{
+    text-align:center;
+    padding:12px 5px;
+  }
+
+  .main{
+    margin-left:64px;
+    width:calc(100% - 64px);
+  }
+
+  .content{padding:14px}
+
+  .stats,
+  .grid-2,
+  .grid-3,
+  .grid-4,
+  .info-grid{
+    grid-template-columns:1fr;
+  }
+
+  .trip-header,
+  .page-head{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .search-row{
+    flex-direction:column;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<div id="loginPage" class="login-page">
-  <div class="login-card">
-    <div class="brand">
-      <div class="brand-icon">S</div>
-      <div>
-        <h1>SERYU</h1>
-        <span>TC MONITORING</span>
-      </div>
-    </div>
+<!-- ======================================================
+     LOGIN
+====================================================== -->
+<div id="loginPage">
 
-    <h2>Welcome Back</h2>
-    <p class="muted">Login untuk mengakses monitoring</p>
+  <div class="login-box">
+
+    <div class="logo">TC</div>
+
+    <h1>SERYU TC Monitoring</h1>
+    <p>Logistics Control Tower — V2</p>
 
     <form id="loginForm">
-      <label>Username</label>
-      <input id="username" type="text" autocomplete="username"
-             placeholder="Masukkan username" required>
 
-      <label>Password</label>
-      <input id="password" type="password"
-             autocomplete="current-password"
-             placeholder="Masukkan password" required>
+      <div class="form-group">
+        <label>Username</label>
+        <input
+          id="username"
+          autocomplete="username"
+          required
+          placeholder="Masukkan username">
+      </div>
 
-      <button class="btn primary full" type="submit">
-        <span id="loginText">Login</span>
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          id="password"
+          type="password"
+          autocomplete="current-password"
+          required
+          placeholder="Masukkan password">
+      </div>
+
+      <button
+        class="btn btn-primary btn-block"
+        type="submit">
+        Login
       </button>
+
     </form>
 
-    <div id="loginError" class="error-box hidden"></div>
   </div>
 </div>
 
 
-<div id="app" class="app hidden">
+<!-- ======================================================
+     APPLICATION
+====================================================== -->
+<div id="app" class="hidden">
 
+  <!-- SIDEBAR -->
   <aside class="sidebar">
 
-    <div class="side-brand">
-      <div class="brand-icon">S</div>
-      <div>
-        <strong>SERYU</strong>
-        <small>TC MONITORING</small>
+    <div class="brand">
+      <div class="brand-icon">TC</div>
+
+      <div class="brand-text">
+        <strong>SERYU TC</strong>
+        <span>Monitoring V2</span>
       </div>
     </div>
 
-    <nav>
+    <div class="nav-title">Menu</div>
 
-      <button class="nav-item active" data-page="dashboard">
-        <span>⌂</span> Dashboard
-      </button>
+    <button class="nav-btn active" data-page="dashboard">
+      📊 <span>Dashboard</span>
+    </button>
 
-      <button class="nav-item" data-page="live">
-        <span>🚚</span> Live Trip
-      </button>
+    <button class="nav-btn" data-page="live">
+      🚚 <span>Live Trips</span>
+    </button>
 
-      <button class="nav-item" data-page="search">
-        <span>⌕</span> Search AWB
-      </button>
+    <button class="nav-btn" data-page="search">
+      🔎 <span>Search AWB</span>
+    </button>
 
-      <button class="nav-item" data-page="monitoring">
-        <span>✎</span> Update Monitoring
-      </button>
+    <button class="nav-btn" data-page="update">
+      📝 <span>Update Monitoring</span>
+    </button>
 
-      <button class="nav-item" data-page="kendala">
-        <span>⚠</span> Kendala
-      </button>
+    <button class="nav-btn" data-page="report">
+      📈 <span>Report</span>
+    </button>
 
-      <button class="nav-item" data-page="report">
-        <span>▥</span> Report
-      </button>
-
-    </nav>
-
-    <div class="side-user">
-      <div class="avatar" id="userAvatar">TC</div>
-      <div class="user-info">
-        <strong id="userName">User</strong>
-        <small id="userRole">TC</small>
-      </div>
-      <button id="logoutBtn" class="logout">↪</button>
+    <div class="user-box">
+      <div class="user-name" id="sideUserName">-</div>
+      <div class="user-role" id="sideUserRole">-</div>
     </div>
 
   </aside>
 
 
+  <!-- MAIN -->
   <main class="main">
 
     <header class="topbar">
 
-      <div>
-        <h2 id="pageTitle">Dashboard</h2>
-        <div id="pageSubtitle" class="muted">
-          Logistics Control Tower
-        </div>
-      </div>
+      <h2 id="pageTitle">
+        Dashboard
+      </h2>
 
-      <div class="top-actions">
-        <span id="clock"></span>
-        <button id="refreshBtn" class="btn ghost">↻ Refresh</button>
+      <div class="topbar-right">
+
+        <button
+          class="btn btn-light"
+          onclick="refreshCurrentPage()">
+          ↻ Refresh
+        </button>
+
+        <button
+          class="btn btn-danger"
+          onclick="logout()">
+          Logout
+        </button>
+
       </div>
 
     </header>
 
 
-    <!-- DASHBOARD -->
+    <div class="content">
 
-    <section id="page-dashboard" class="page active">
 
-      <div class="stats-grid">
+      <!-- =================================================
+           DASHBOARD
+      ================================================== -->
+      <section
+        id="page-dashboard"
+        class="page active">
 
-        <div class="stat-card">
-          <div class="stat-label">TOTAL TRIP</div>
-          <div id="statTotal" class="stat-value">-</div>
-          <div class="stat-icon">🚚</div>
+        <div class="page-head">
+          <div>
+            <h2>Dashboard</h2>
+            <p>Monitoring kondisi trip secara realtime dari DB Master.</p>
+          </div>
         </div>
 
-        <div class="stat-card">
-          <div class="stat-label">ON TRIP</div>
-          <div id="statOnTrip" class="stat-value">-</div>
-          <div class="stat-icon">▶</div>
-        </div>
+        <div class="stats">
 
-        <div class="stat-card">
-          <div class="stat-label">DELIVERED</div>
-          <div id="statDelivered" class="stat-value">-</div>
-          <div class="stat-icon">✓</div>
-        </div>
-
-        <div class="stat-card danger">
-          <div class="stat-label">DELAY</div>
-          <div id="statDelay" class="stat-value">-</div>
-          <div class="stat-icon">⚠</div>
-        </div>
-
-      </div>
-
-
-      <div class="section-head">
-        <div>
-          <h3>Project Summary</h3>
-          <p class="muted">Ringkasan performa per project</p>
-        </div>
-      </div>
-
-      <div class="table-card">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Project</th>
-                <th>Total</th>
-                <th>On Trip</th>
-                <th>Delivered</th>
-                <th>Late</th>
-              </tr>
-            </thead>
-            <tbody id="projectTable"></tbody>
-          </table>
-        </div>
-      </div>
-
-    </section>
-
-
-    <!-- LIVE -->
-
-    <section id="page-live" class="page">
-
-      <div class="filter-card">
-
-        <input id="liveSearch"
-               placeholder="Cari AWB / Nopol / Project...">
-
-        <select id="liveProject">
-          <option value="">Semua Project</option>
-        </select>
-
-        <select id="liveStatus">
-          <option value="">Semua Status</option>
-          <option>ON TRIP</option>
-          <option>DELIVERED</option>
-          <option>NOT STARTED</option>
-        </select>
-
-        <select id="livePerformance">
-          <option value="">Semua Performance</option>
-          <option>ON TIME</option>
-          <option>LATE</option>
-        </select>
-
-        <button id="liveFilterBtn" class="btn primary">
-          Filter
-        </button>
-
-      </div>
-
-      <div id="liveContainer" class="trip-grid"></div>
-
-    </section>
-
-
-    <!-- SEARCH -->
-
-    <section id="page-search" class="page">
-
-      <div class="search-box">
-
-        <input id="awbSearch"
-               placeholder="Masukkan Nomor AWB">
-
-        <button id="searchBtn" class="btn primary">
-          Search AWB
-        </button>
-
-      </div>
-
-      <div id="searchResult"></div>
-
-    </section>
-
-
-    <!-- MONITORING -->
-
-    <section id="page-monitoring" class="page">
-
-      <div class="monitor-layout">
-
-        <div class="panel">
-
-          <div class="panel-title">
-            <h3>Update Monitoring</h3>
-            <span class="badge">TC</span>
+          <div class="stat stat-blue">
+            <div class="stat-label">TOTAL TRIP</div>
+            <div class="stat-value" id="statTotal">0</div>
           </div>
 
-          <label>Nomor AWB</label>
+          <div class="stat stat-blue">
+            <div class="stat-label">ON TRIP</div>
+            <div class="stat-value" id="statOnTrip">0</div>
+          </div>
 
-          <div class="input-row">
-            <input id="monitorAWB"
-                   placeholder="Masukkan AWB">
+          <div class="stat stat-green">
+            <div class="stat-label">DELIVERED</div>
+            <div class="stat-value" id="statDelivered">0</div>
+          </div>
 
-            <button id="loadMonitorBtn"
-                    class="btn ghost">
-              Cari
+          <div class="stat stat-red">
+            <div class="stat-label">LATE</div>
+            <div class="stat-value" id="statLate">0</div>
+          </div>
+
+          <div class="stat stat-orange">
+            <div class="stat-label">ON TIME</div>
+            <div class="stat-value" id="statOnTime">0</div>
+          </div>
+
+        </div>
+
+
+        <div class="grid-2">
+
+          <div class="card">
+
+            <div class="card-title">
+              Project Summary
+            </div>
+
+            <div
+              id="projectSummary">
+              Loading...
+            </div>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="card-title">
+              Quick Search
+            </div>
+
+            <div class="search-row">
+
+              <input
+                id="quickAWB"
+                placeholder="Masukkan Nomor AWB">
+
+              <button
+                class="btn btn-primary"
+                onclick="quickSearch()">
+                Search
+              </button>
+
+            </div>
+
+            <div
+              style="margin-top:15px;color:#64748b;font-size:12px">
+              Gunakan menu Search AWB untuk melihat
+              detail dan timeline lengkap.
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           LIVE TRIPS
+      ================================================== -->
+      <section
+        id="page-live"
+        class="page">
+
+        <div class="page-head">
+
+          <div>
+            <h2>Live Trips</h2>
+            <p>Daftar trip dari DB Master.</p>
+          </div>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="grid-4">
+
+            <select id="filterProject">
+              <option value="">Semua Project</option>
+            </select>
+
+            <select id="filterType">
+              <option value="">Semua Type Trip</option>
+              <option value="ONE WAY">ONE WAY</option>
+              <option value="ROUND TRIP">ROUND TRIP</option>
+            </select>
+
+            <select id="filterStatus">
+              <option value="">Semua Status</option>
+              <option value="ON TRIP">ON TRIP</option>
+              <option value="DELIVERED">DELIVERED</option>
+              <option value="NOT STARTED">NOT STARTED</option>
+            </select>
+
+            <input
+              id="liveSearch"
+              placeholder="Cari AWB / Nopol / Project">
+
+          </div>
+
+          <div style="margin-top:12px">
+            <button
+              class="btn btn-primary"
+              onclick="loadLiveTrips()">
+              Terapkan Filter
             </button>
           </div>
 
-          <div id="monitorTripInfo" class="trip-mini hidden"></div>
-
-          <label>Jam Update</label>
-
-          <select id="jamUpdate">
-            <option value="">Pilih Jam</option>
-            <option>00:00</option>
-            <option>02:00</option>
-            <option>04:00</option>
-            <option>06:00</option>
-            <option>08:00</option>
-            <option>10:00</option>
-            <option>12:00</option>
-            <option>14:00</option>
-            <option>16:00</option>
-            <option>18:00</option>
-            <option>20:00</option>
-            <option>22:00</option>
-            <option value="MANUAL">Manual</option>
-          </select>
-
-          <label>Kendala</label>
-
-          <select id="kendalaSelect">
-            <option value="">Tidak ada kendala</option>
-          </select>
-
-          <label>Keterangan</label>
-
-          <textarea id="monitorKeterangan"
-                    rows="4"
-                    placeholder="Masukkan update / posisi / keterangan"></textarea>
-
-          <label>Foto</label>
-
-          <input id="monitorPhoto"
-                 type="file"
-                 accept="image/*">
-
-          <div id="photoPreview" class="photo-preview hidden"></div>
-
-          <button id="saveMonitorBtn"
-                  class="btn primary full">
-            Simpan Monitoring
-          </button>
-
-          <div id="monitorMessage"></div>
-
         </div>
 
 
-        <div class="panel">
+        <div class="card">
 
-          <div class="panel-title">
-            <h3>Timeline</h3>
-          </div>
+          <div class="table-wrap">
 
-          <div id="monitorTimeline"
-               class="timeline empty">
-            Cari AWB untuk melihat timeline
+            <table>
+
+              <thead>
+                <tr>
+                  <th>AWB</th>
+                  <th>Project</th>
+                  <th>Route</th>
+                  <th>Type</th>
+                  <th>Nopol</th>
+                  <th>Status</th>
+                  <th>Performance</th>
+                  <th></th>
+                </tr>
+              </thead>
+
+              <tbody id="liveTable">
+                <tr>
+                  <td colspan="8">
+                    Loading...
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
+
           </div>
 
         </div>
 
-      </div>
-
-    </section>
+      </section>
 
 
-    <!-- KENDALA -->
+      <!-- =================================================
+           SEARCH AWB
+      ================================================== -->
+      <section
+        id="page-search"
+        class="page">
 
-    <section id="page-kendala" class="page">
+        <div class="page-head">
 
-      <div class="panel small-panel">
-
-        <h3>Master Kendala</h3>
-
-        <p class="muted">
-          Tambahkan kendala yang dapat dipilih TC.
-        </p>
-
-        <div class="input-row">
-
-          <input id="newKendala"
-                 placeholder="Contoh: Unit Breakdown">
-
-          <button id="saveKendalaBtn"
-                  class="btn primary">
-            Tambah
-          </button>
+          <div>
+            <h2>Search AWB</h2>
+            <p>
+              Cari detail trip dan timeline monitoring.
+            </p>
+          </div>
 
         </div>
 
-        <div id="kendalaList" class="tag-list"></div>
 
-      </div>
+        <div class="card">
 
-    </section>
+          <div class="search-row">
+
+            <input
+              id="searchAWBInput"
+              placeholder="Masukkan Nomor AWB">
+
+            <button
+              class="btn btn-primary"
+              onclick="searchAWB()">
+              Search AWB
+            </button>
+
+          </div>
+
+        </div>
 
 
-    <!-- REPORT -->
+        <div id="tripResult"></div>
 
-    <section id="page-report" class="page">
+      </section>
 
-      <div id="reportContainer"
-           class="report-grid"></div>
 
-    </section>
+      <!-- =================================================
+           UPDATE MONITORING
+      ================================================== -->
+      <section
+        id="page-update"
+        class="page">
+
+        <div class="page-head">
+
+          <div>
+            <h2>Update Monitoring</h2>
+            <p>
+              Simpan update posisi / kondisi trip.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="grid-2">
+
+          <div class="card">
+
+            <div class="card-title">
+              Pilih Trip
+            </div>
+
+            <div class="form-group">
+
+              <label>Nomor AWB</label>
+
+              <div class="search-row">
+
+                <input
+                  id="updateAWB"
+                  placeholder="Nomor AWB">
+
+                <button
+                  class="btn btn-primary"
+                  onclick="loadUpdateTrip()">
+                  Cari
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div id="updateTripInfo"></div>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="card-title">
+              Monitoring Update
+            </div>
+
+            <div class="form-group">
+
+              <label>Jam Update</label>
+
+              <input
+                id="jamUpdate"
+                type="datetime-local">
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>Kendala</label>
+
+              <select id="kendalaSelect">
+
+                <option value="">
+                  Tidak ada kendala
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>Keterangan</label>
+
+              <textarea
+                id="keterangan"
+                placeholder="Contoh: Unit sudah sampai gateway..."></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>Foto</label>
+
+              <div class="upload-box">
+
+                <input
+                  id="photoInput"
+                  type="file"
+                  accept="image/*">
+
+                <div
+                  style="font-size:12px;color:#64748b;margin-top:7px">
+                  Pilih foto dokumentasi monitoring.
+                </div>
+
+                <img
+                  id="photoPreview"
+                  class="photo-preview hidden">
+
+              </div>
+
+            </div>
+
+
+            <button
+              id="saveUpdateBtn"
+              class="btn btn-primary btn-block"
+              onclick="saveMonitoring()">
+
+              Simpan Monitoring
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           REPORT
+      ================================================== -->
+      <section
+        id="page-report"
+        class="page">
+
+        <div class="page-head">
+
+          <div>
+            <h2>Report</h2>
+            <p>Ringkasan performa operasional.</p>
+          </div>
+
+        </div>
+
+
+        <div class="grid-2">
+
+          <div class="card">
+
+            <div class="card-title">
+              Project
+            </div>
+
+            <div id="reportProjects">
+              Loading...
+            </div>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="card-title">
+              Performance
+            </div>
+
+            <div id="reportPerformance">
+              Loading...
+            </div>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="card-title">
+              Type Trip
+            </div>
+
+            <div id="reportType">
+              Loading...
+            </div>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="card-title">
+              Trip Status
+            </div>
+
+            <div id="reportStatus">
+              Loading...
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+    </div>
 
   </main>
 
 </div>
 
 
-<div id="toast" class="toast"></div>
+<!-- TOAST -->
+<div id="toast"></div>
 
-<script src="app.js"></script>
+
+<!-- LOADING -->
+<div id="loading">
+  <div class="loader"></div>
+</div>
+
+
+<script>
+
+/* =========================================================
+   CONFIG
+========================================================= */
+
+const API_URL =
+  'https://script.google.com/macros/s/AKfycbxUgKEUjjGPMAIXAIT3L03pWvOlW_OdpeaNJ_KJqlFV5BBJOAelogJl4kZju7flsLgS/exec';
+
+
+let SESSION = null;
+let CURRENT_PAGE = 'dashboard';
+let CURRENT_TRIP = null;
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+document.addEventListener(
+  'DOMContentLoaded',
+  function(){
+
+    const saved =
+      localStorage.getItem(
+        'SERYU_TC_SESSION'
+      );
+
+    if(saved){
+
+      try{
+
+        SESSION =
+          JSON.parse(saved);
+
+        showApp();
+
+      }catch(e){
+
+        localStorage.removeItem(
+          'SERYU_TC_SESSION'
+        );
+
+      }
+
+    }
+
+    document
+      .getElementById('loginForm')
+      .addEventListener(
+        'submit',
+        login
+      );
+
+
+    document
+      .getElementById('photoInput')
+      .addEventListener(
+        'change',
+        previewPhoto
+      );
+
+
+    document
+      .querySelectorAll('.nav-btn')
+      .forEach(
+        function(btn){
+
+          btn.addEventListener(
+            'click',
+            function(){
+
+              openPage(
+                btn.dataset.page
+              );
+
+            }
+          );
+
+        }
+      );
+
+  }
+);
+
+
+/* =========================================================
+   API GET
+========================================================= */
+
+async function apiGet(
+  action,
+  params={}
+){
+
+  const query =
+    new URLSearchParams();
+
+  query.set(
+    'action',
+    action
+  );
+
+
+  if(
+    SESSION &&
+    SESSION.token
+  ){
+
+    query.set(
+      'token',
+      SESSION.token
+    );
+
+  }
+
+
+  Object.keys(params)
+    .forEach(
+      function(key){
+
+        if(
+          params[key] !== undefined &&
+          params[key] !== null
+        ){
+
+          query.set(
+            key,
+            params[key]
+          );
+
+        }
+
+      }
+    );
+
+
+  const response =
+    await fetch(
+      API_URL +
+      '?' +
+      query.toString()
+    );
+
+
+  if(!response.ok){
+
+    throw new Error(
+      'HTTP ' +
+      response.status
+    );
+
+  }
+
+
+  return response.json();
+
+}
+
+
+/* =========================================================
+   API POST
+========================================================= */
+
+async function apiPost(
+  action,
+  data={}
+){
+
+  const body =
+    Object.assign(
+      {},
+      data,
+      {
+        action:action
+      }
+    );
+
+
+  if(
+    SESSION &&
+    SESSION.token
+  ){
+
+    body.token =
+      SESSION.token;
+
+  }
+
+
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method:'POST',
+        headers:{
+          'Content-Type':
+            'text/plain;charset=utf-8'
+        },
+        body:
+          JSON.stringify(body)
+      }
+    );
+
+
+  if(!response.ok){
+
+    throw new Error(
+      'HTTP ' +
+      response.status
+    );
+
+  }
+
+
+  return response.json();
+
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+async function login(e){
+
+  e.preventDefault();
+
+  const username =
+    document
+      .getElementById('username')
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById('password')
+      .value
+      .trim();
+
+
+  if(!username || !password){
+
+    toast(
+      'Username dan password wajib diisi'
+    );
+
+    return;
+
+  }
+
+
+  loading(true);
+
+
+  try{
+
+    const result =
+      await apiPost(
+        'login',
+        {
+          username,
+          password
+        }
+      );
+
+
+    if(!result.success){
+
+      throw new Error(
+        result.error ||
+        'Login gagal'
+      );
+
+    }
+
+
+    SESSION = {
+
+      token:
+        result.token,
+
+      user:
+        result.user
+
+    };
+
+
+    localStorage.setItem(
+      'SERYU_TC_SESSION',
+      JSON.stringify(
+        SESSION
+      )
+    );
+
+
+    showApp();
+
+    toast(
+      'Login berhasil'
+    );
+
+  }catch(err){
+
+    toast(
+      err.message
+    );
+
+  }finally{
+
+    loading(false);
+
+  }
+
+}
+
+
+/* =========================================================
+   SHOW APP
+========================================================= */
+
+function showApp(){
+
+  document
+    .getElementById('loginPage')
+    .classList
+    .add('hidden');
+
+
+  document
+    .getElementById('app')
+    .classList
+    .remove('hidden');
+
+
+  const user =
+    SESSION.user || {};
+
+
+  document
+    .getElementById('sideUserName')
+    .textContent =
+      user.nama ||
+      user.username ||
+      '-';
+
+
+  document
+    .getElementById('sideUserRole')
+    .textContent =
+      user.role ||
+      '-';
+
+
+  loadDashboard();
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logout(){
+
+  SESSION = null;
+
+  localStorage.removeItem(
+    'SERYU_TC_SESSION'
+  );
+
+
+  document
+    .getElementById('app')
+    .classList
+    .add('hidden');
+
+
+  document
+    .getElementById('loginPage')
+    .classList
+    .remove('hidden');
+
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+function openPage(page){
+
+  CURRENT_PAGE = page;
+
+
+  document
+    .querySelectorAll('.page')
+    .forEach(
+      function(el){
+
+        el.classList.remove(
+          'active'
+        );
+
+      }
+    );
+
+
+  const target =
+    document.getElementById(
+      'page-' + page
+    );
+
+
+  if(target){
+
+    target.classList.add(
+      'active'
+    );
+
+  }
+
+
+  document
+    .querySelectorAll('.nav-btn')
+    .forEach(
+      function(btn){
+
+        btn.classList.toggle(
+          'active',
+          btn.dataset.page === page
+        );
+
+      }
+    );
+
+
+  const titles = {
+
+    dashboard:'Dashboard',
+
+    live:'Live Trips',
+
+    search:'Search AWB',
+
+    update:'Update Monitoring',
+
+    report:'Report'
+
+  };
+
+
+  document
+    .getElementById('pageTitle')
+    .textContent =
+      titles[page] ||
+      page;
+
+
+  if(page === 'dashboard')
+    loadDashboard();
+
+  if(page === 'live')
+    loadLivePage();
+
+  if(page === 'search')
+    loadKendala();
+
+  if(page === 'update'){
+    loadKendala();
+    setDefaultJam();
+  }
+
+  if(page === 'report')
+    loadReport();
+
+}
+
+
+/* =========================================================
+   REFRESH
+========================================================= */
+
+function refreshCurrentPage(){
+
+  openPage(
+    CURRENT_PAGE
+  );
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+async function loadDashboard(){
+
+  try{
+
+    const result =
+      await apiGet(
+        'dashboard'
+      );
+
+
+    if(!result.success){
+
+      throw new Error(
+        result.error
+      );
+
+    }
+
+
+    const s =
+      result.stats || {};
+
+
+    document
+      .getElementById('statTotal')
+      .textContent =
+        number(s.totalTrip);
+
+
+    document
+      .getElementById('statOnTrip')
+      .textContent =
+        number(s.onTrip);
+
+
+    document
+      .getElementById('statDelivered')
+      .textContent =
+        number(s.delivered);
+
+
+    document
+      .getElementById('statLate')
+      .textContent =
+        number(s.late);
+
+
+    document
+      .getElementById('statOnTime')
+      .textContent =
+        number(s.onTime);
+
+
+    renderProjectSummary(
+      result.projects || []
+    );
+
+  }catch(err){
+
+    toast(
+      err.message
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   PROJECT SUMMARY
+========================================================= */
+
+function renderProjectSummary(
+  projects
+){
+
+  const el =
+    document.getElementById(
+      'projectSummary'
+    );
+
+
+  if(!projects.length){
+
+    el.innerHTML =
+      '<div style="color:#64748b">Tidak ada data.</div>';
+
+    return;
+
+  }
+
+
+  let html =
+    '<div class="table-wrap"><table>' +
+    '<thead><tr>' +
+    '<th>Project</th>' +
+    '<th>Total</th>' +
+    '<th>On Trip</th>' +
+    '<th>Delivered</th>' +
+    '<th>Late</th>' +
+    '</tr></thead><tbody>';
+
+
+  projects.forEach(
+    function(p){
+
+      html +=
+        '<tr>' +
+        '<td>' + esc(p.project) + '</td>' +
+        '<td>' + number(p.total) + '</td>' +
+        '<td>' + number(p.onTrip) + '</td>' +
+        '<td>' + number(p.delivered) + '</td>' +
+        '<td>' + number(p.late) + '</td>' +
+        '</tr>';
+
+    }
+  );
+
+
+  html +=
+    '</tbody></table></div>';
+
+
+  el.innerHTML = html;
+
+}
+
+
+/* =========================================================
+   QUICK SEARCH
+========================================================= */
+
+function quickSearch(){
+
+  const awb =
+    document
+      .getElementById('quickAWB')
+      .value
+      .trim();
+
+
+  if(!awb){
+
+    toast(
+      'Masukkan Nomor AWB'
+    );
+
+    return;
+
+  }
+
+
+  document
+    .getElementById('searchAWBInput')
+    .value =
+      awb;
+
+
+  openPage(
+    'search'
+  );
+
+
+  searchAWB();
+
+}
+
+
+/* =========================================================
+   SEARCH AWB
+========================================================= */
+
+async function searchAWB(){
+
+  const awb =
+    document
+      .getElementById(
+        'searchAWBInput'
+      )
+      .value
+      .trim();
+
+
+  if(!awb){
+
+    toast(
+      'Nomor AWB wajib diisi'
+    );
+
+    return;
+
+  }
+
+
+  const container =
+    document.getElementById(
+      'tripResult'
+    );
+
+
+  container.innerHTML =
+    '<div class="card">Loading...</div>';
+
+
+  try{
+
+    const result =
+      await apiGet(
+        'searchAWB',
+        {awb}
+      );
+
+
+    if(!result.success){
+
+      throw new Error(
+        result.error
+      );
+
+    }
+
+
+    CURRENT_TRIP =
+      result.trip;
+
+
+    renderTrip(
+      result.trip,
+      result.history || [],
+      result.timeline || []
+    );
+
+
+  }catch(err){
+
+    container.innerHTML =
+      '<div class="card">' +
+      '<b>Data tidak ditemukan</b>' +
+      '<div style="margin-top:7px;color:#64748b">' +
+      esc(err.message) +
+      '</div>' +
+      '</div>';
+
+  }
+
+}
+
+
+/* =========================================================
+   RENDER TRIP
+========================================================= */
+
+function renderTrip(
+  trip,
+  history,
+  timeline
+){
+
+  const container =
+    document.getElementById(
+      'tripResult'
+    );
+
+
+  if(!trip){
+
+    container.innerHTML =
+      '<div class="card">Trip tidak ditemukan.</div>';
+
+    return;
+
+  }
+
+
+  let html = '';
+
+
+  html +=
+    '<div class="card">' +
+
+      '<div class="trip-header">' +
+
+        '<div>' +
+
+          '<div class="awb">' +
+            esc(trip.awb) +
+          '</div>' +
+
+          '<div class="route">' +
+            esc(trip.route || '-') +
+          '</div>' +
+
+        '</div>' +
+
+        '<div>' +
+          statusBadge(
+            trip.tripStatus
+          ) +
+          ' ' +
+          performanceBadge(
+            trip.performance
+          ) +
+        '</div>' +
+
+      '</div>' +
+
+    '</div>';
+
+
+  html +=
+    '<div class="card">' +
+
+      '<div class="card-title">' +
+        'Informasi Trip' +
+      '</div>' +
+
+      '<div class="info-grid">' +
+
+        info(
+          'Project',
+          trip.projectName
+        ) +
+
+        info(
+          'Detail Project',
+          trip.detailProject
+        ) +
+
+        info(
+          'Type Trip',
+          trip.typeTrip
+        ) +
+
+        info(
+          'Sales Order',
+          trip.salesOrder
+        ) +
+
+        info(
+          'Pickup Date',
+          trip.pickupDate
+        ) +
+
+        info(
+          'Origin',
+          trip.origin
+        ) +
+
+        info(
+          'Destination',
+          trip.destination
+        ) +
+
+        info(
+          'Last Destination',
+          trip.lastDestination
+        ) +
+
+        info(
+          'Logistic Partner',
+          trip.logisticPartnerName
+        ) +
+
+        info(
+          'Partner Type',
+          trip.logisticPartnerType
+        ) +
+
+        info(
+          'Driver 1',
+          trip.driver1
+        ) +
+
+        info(
+          'Driver 2',
+          trip.driver2
+        ) +
+
+        info(
+          'Unit Type',
+          trip.unitType
+        ) +
+
+        info(
+          'Nopol',
+          trip.nopol
+        ) +
+
+        info(
+          'Gateway J&T',
+          trip.gatewayJT
+        ) +
+
+        info(
+          'Gateway Destination',
+          trip.gatewayDestination
+        ) +
+
+        info(
+          'SLA Type',
+          trip.slaType
+        ) +
+
+        info(
+          'SLA Database',
+          trip.slaDatabase
+        ) +
+
+        info(
+          'SLA Performance',
+          trip.slaPerformance
+        ) +
+
+        info(
+          'Start Time',
+          trip.startTime1
+        ) +
+
+        info(
+          'End Time',
+          trip.endTime1
+        ) +
+
+        info(
+          'Date Delivered',
+          trip.dateDelivered
+        ) +
+
+        info(
+          'Surat Jalan',
+          trip.suratJalan
+        ) +
+
+      '</div>' +
+
+    '</div>';
+
+
+  html +=
+    '<div class="grid-2">';
+
+
+  html +=
+    '<div class="card">' +
+
+      '<div class="card-title">' +
+        'Timeline Tracking' +
+      '</div>' +
+
+      renderTimeline(
+        timeline
+      ) +
+
+    '</div>';
+
+
+  html +=
+    '<div class="card">' +
+
+      '<div class="card-title">' +
+        'History Monitoring (' +
+        history.length +
+        ')' +
+      '</div>' +
+
+      renderHistory(
+        history
+      ) +
+
+    '</div>';
+
+
+  html +=
+    '</div>';
+
+
+  container.innerHTML =
+    html;
+
+}
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+function renderTimeline(
+  timeline
+){
+
+  if(!timeline || !timeline.length){
+
+    return (
+      '<div style="color:#64748b;font-size:13px">' +
+      'Belum ada timeline monitoring.' +
+      '</div>'
+    );
+
+  }
+
+
+  let html =
+    '<div class="timeline">';
+
+
+  timeline.forEach(
+    function(item){
+
+      const issue =
+        item.status === 'ISSUE'
+          ? ' issue'
+          : '';
+
+
+      html +=
+        '<div class="timeline-item' +
+        issue +
+        '">' +
+
+          '<div class="timeline-dot"></div>' +
+
+          '<div class="timeline-title">' +
+            esc(item.title || '-') +
+          '</div>' +
+
+          '<div class="timeline-time">' +
+            esc(item.time || '-') +
+          '</div>';
+
+
+      if(item.kendala){
+
+        html +=
+          '<div class="timeline-desc">' +
+          '<b>Kendala:</b> ' +
+          esc(item.kendala) +
+          '</div>';
+
+      }
+
+
+      if(item.keterangan){
+
+        html +=
+          '<div class="timeline-desc">' +
+          esc(item.keterangan) +
+          '</div>';
+
+      }
+
+
+      if(item.pic){
+
+        html +=
+          '<div style="font-size:11px;color:#64748b;margin-top:5px">' +
+          'PIC: ' +
+          esc(item.pic) +
+          '</div>';
+
+      }
+
+
+      if(item.photo){
+
+        html +=
+          '<img class="timeline-photo" ' +
+          'src="' +
+          escAttr(item.photo) +
+          '" ' +
+          'onerror="this.style.display=\'none\'">';
+
+      }
+
+
+      html +=
+        '</div>';
+
+    }
+  );
+
+
+  html +=
+    '</div>';
+
+
+  return html;
+
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function renderHistory(
+  history
+){
+
+  if(!history.length){
+
+    return (
+      '<div style="color:#64748b;font-size:13px">' +
+      'Belum ada history monitoring.' +
+      '</div>'
+    );
+
+  }
+
+
+  let html =
+    '<div class="table-wrap">' +
+    '<table>' +
+    '<thead>' +
+    '<tr>' +
+    '<th>Jam</th>' +
+    '<th>PIC</th>' +
+    '<th>Kendala</th>' +
+    '<th>Keterangan</th>' +
+    '<th>Foto</th>' +
+    '</tr>' +
+    '</thead>' +
+    '<tbody>';
+
+
+  history.forEach(
+    function(row){
+
+      const jam =
+        getField(
+          row,
+          [
+            'Jam Update'
+          ]
+        );
+
+
+      const pic =
+        getField(
+          row,
+          [
+            'PIC'
+          ]
+        );
+
+
+      const kendala =
+        getField(
+          row,
+          [
+            'Kendala'
+          ]
+        );
+
+
+      const ket =
+        getField(
+          row,
+          [
+            'Keterangan'
+          ]
+        );
+
+
+      const foto =
+        getField(
+          row,
+          [
+            'Foto'
+          ]
+        );
+
+
+      html +=
+        '<tr>' +
+
+        '<td>' +
+          esc(jam || '-') +
+        '</td>' +
+
+        '<td>' +
+          esc(pic || '-') +
+        '</td>' +
+
+        '<td>' +
+          (kendala
+            ? '<span class="badge badge-red">' +
+              esc(kendala) +
+              '</span>'
+            : '<span class="badge badge-green">OK</span>') +
+        '</td>' +
+
+        '<td>' +
+          esc(ket || '-') +
+        '</td>' +
+
+        '<td>' +
+          (
+            foto
+              ? '<a href="' +
+                escAttr(foto) +
+                '" target="_blank">Foto</a>'
+              : '-'
+          ) +
+        '</td>' +
+
+        '</tr>';
+
+    }
+  );
+
+
+  html +=
+    '</tbody></table></div>';
+
+
+  return html;
+
+}
+
+
+/* =========================================================
+   LOAD LIVE
+========================================================= */
+
+function loadLivePage(){
+
+  loadProjects();
+  loadLiveTrips();
+
+}
+
+
+/* =========================================================
+   LOAD PROJECTS
+========================================================= */
+
+async function loadProjects(){
+
+  try{
+
+    const result =
+      await apiGet(
+        'getProjects'
+      );
+
+
+    if(!result.success)
+      return;
+
+
+    const select =
+      document.getElementById(
+        'filterProject'
+      );
+
+
+    const current =
+      select.value;
+
+
+    select.innerHTML =
+      '<option value="">Semua Project</option>';
+
+
+    (result.projects || [])
+      .forEach(
+        function(project){
+
+          const option =
+            document.createElement(
+              'option'
+            );
+
+          option.value =
+            project;
+
+          option.textContent =
+            project;
+
+          select.appendChild(
+            option
+          );
+
+        }
+      );
+
+
+    select.value =
+      current;
+
+  }catch(e){
+
+    console.error(e);
+
+  }
+
+}
+
+
+/* =========================================================
+   LIVE TRIPS
+========================================================= */
+
+async function loadLiveTrips(){
+
+  const tbody =
+    document.getElementById(
+      'liveTable'
+    );
+
+
+  tbody.innerHTML =
+    '<tr><td colspan="8">Loading...</td></tr>';
+
+
+  try{
+
+    const result =
+      await apiGet(
+        'getLiveTrips',
+        {
+
+          project:
+            document
+              .getElementById(
+                'filterProject'
+              ).value,
+
+          typeTrip:
+            document
+              .getElementById(
+                'filterType'
+              ).value,
+
+          tripStatus:
+            document
+              .getElementById(
+                'filterStatus'
+              ).value,
+
+          search:
+            document
+              .getElementById(
+                'liveSearch'
+              ).value,
+
+          page:1,
+
+          limit:100
+
+        }
+      );
+
+
+    if(!result.success){
+
+      throw new Error(
+        result.error
+      );
+
+    }
+
+
+    const data =
+      result.data || [];
+
+
+    if(!data.length){
+
+      tbody.innerHTML =
+        '<tr><td colspan="8">Tidak ada data.</td></tr>';
+
+      return;
+
+    }
+
+
+    let html = '';
+
+
+    data.forEach(
+      function(item){
+
+        html +=
+          '<tr>' +
+
+          '<td><b>' +
+            esc(item.awb) +
+          '</b></td>' +
+
+          '<td>' +
+            esc(item.projectName || '-') +
+          '</td>' +
+
+          '<td>' +
+            esc(item.route || '-') +
+          '</td>' +
+
+          '<td>' +
+            esc(item.typeTrip || '-') +
+          '</td>' +
+
+          '<td>' +
+            esc(item.nopol || '-') +
+          '</td>' +
+
+          '<td>' +
+            statusBadge(
+              item.tripStatus
+            ) +
+          '</td>' +
+
+          '<td>' +
+            performanceBadge(
+              item.performance
+            ) +
+          '</td>' +
+
+          '<td>' +
+
+            '<button ' +
+            'class="btn btn-light" ' +
+            'style="padding:7px 10px;font-size:11px" ' +
+            'onclick="openTrip(\'' +
+            jsQuote(item.awb) +
+            '\')">' +
+
+            'Detail' +
+
+            '</button>' +
+
+          '</td>' +
+
+          '</tr>';
+
+      }
+    );
+
+
+    tbody.innerHTML =
+      html;
+
+  }catch(err){
+
+    tbody.innerHTML =
+      '<tr><td colspan="8">' +
+      esc(err.message) +
+      '</td></tr>';
+
+  }
+
+}
+
+
+/* =========================================================
+   OPEN TRIP
+========================================================= */
+
+function openTrip(awb){
+
+  document
+    .getElementById(
+      'searchAWBInput'
+    )
+    .value =
+      awb;
+
+
+  openPage(
+    'search'
+  );
+
+
+  searchAWB();
+
+}
+
+
+/* =========================================================
+   KENDALA
+========================================================= */
+
+async function loadKendala(){
+
+  try{
+
+    const result =
+      await apiGet(
+        'getKendala'
+      );
+
+
+    if(!result.success)
+      return;
+
+
+    const select =
+      document.getElementById(
+        'kendalaSelect'
+      );
+
+
+    select.innerHTML =
+      '<option value="">Tidak ada kendala</option>';
+
+
+    (result.kendala || [])
+      .forEach(
+        function(item){
+
+          const option =
+            document.createElement(
+              'option'
+            );
+
+          option.value =
+            item;
+
+          option.textContent =
+            item;
+
+          select.appendChild(
+            option
+          );
+
+        }
+      );
+
+  }catch(e){
+
+    console.error(e);
+
+  }
+
+}
+
+
+/* =========================================================
+   UPDATE TRIP
+========================================================= */
+
+async function loadUpdateTrip(){
+
+  const awb =
+    document
+      .getElementById(
+        'updateAWB'
+      )
+      .value
+      .trim();
+
+
+  if(!awb){
+
+    toast(
+      'Masukkan Nomor AWB'
+    );
+
+    return;
+
+  }
+
+
+  const box =
+    document.getElementById(
+      'updateTripInfo'
+    );
+
+
+  box.innerHTML =
+    '<div style="color:#64748b">Loading...</div>';
+
+
+  try{
+
+    const result =
+      await apiGet(
+        'getTrip',
+        {awb}
+      );
+
+
+    if(!result.success){
+
+      throw new Error(
+        result.error
+      );
+
+    }
+
+
+    CURRENT_TRIP =
+      result.trip;
+
+
+    box.innerHTML =
+      '<div style="background:#f8fafc;border-radius:10px;padding:12px">' +
+
+      '<b>' +
+      esc(result.trip.awb) +
+      '</b>' +
+
+      '<div style="font-size:12px;margin-top:5px">' +
+      esc(result.trip.projectName || '-') +
+      '</div>' +
+
+      '<div style="font-size:12px;margin-top:3px">' +
+      esc(result.trip.route || '-') +
+      '</div>' +
+
+      '<div style="margin-top:8px">' +
+      statusBadge(
+        result.trip.tripStatus
+      ) +
+      '</div>' +
+
+      '</div>';
+
+  }catch(err){
+
+    box.innerHTML =
+      '<div style="color:#dc2626">' +
+      esc(err.message) +
+      '</div>';
+
+  }
+
+}
+
+
+/* =========================================================
+   DEFAULT JAM
+========================================================= */
+
+function setDefaultJam(){
+
+  const input =
+    document.getElementById(
+      'jamUpdate'
+    );
+
+
+  if(
+    !input.value
+  ){
+
+    const d =
+      new Date();
+
+
+    const pad =
+      n =>
+      String(n).padStart(
+        2,
+        '0'
+      );
+
+
+    input.value =
+      d.getFullYear() +
+      '-' +
+      pad(d.getMonth()+1) +
+      '-' +
+      pad(d.getDate()) +
+      'T' +
+      pad(d.getHours()) +
+      ':' +
+      pad(d.getMinutes());
+
+  }
+
+}
+
+
+/* =========================================================
+   PHOTO PREVIEW
+========================================================= */
+
+function previewPhoto(e){
+
+  const file =
+    e.target.files &&
+    e.target.files[0];
+
+
+  const img =
+    document.getElementById(
+      'photoPreview'
+    );
+
+
+  if(!file){
+
+    img.classList.add(
+      'hidden'
+    );
+
+    return;
+
+  }
+
+
+  const reader =
+    new FileReader();
+
+
+  reader.onload =
+    function(event){
+
+      img.src =
+        event.target.result;
+
+      img.classList.remove(
+        'hidden'
+      );
+
+    };
+
+
+  reader.readAsDataURL(
+    file
+  );
+
+}
+
+
+/* =========================================================
+   SAVE MONITORING
+========================================================= */
+
+async function saveMonitoring(){
+
+  const awb =
+    document
+      .getElementById(
+        'updateAWB'
+      )
+      .value
+      .trim();
+
+
+  if(!awb){
+
+    toast(
+      'Nomor AWB wajib diisi'
+    );
+
+    return;
+
+  }
+
+
+  const jam =
+    document
+      .getElementById(
+        'jamUpdate'
+      )
+      .value;
+
+
+  const kendala =
+    document
+      .getElementById(
+        'kendalaSelect'
+      )
+      .value;
+
+
+  const keterangan =
+    document
+      .getElementById(
+        'keterangan'
+      )
+      .value
+      .trim();
+
+
+  const file =
+    document
+      .getElementById(
+        'photoInput'
+      )
+      .files[0];
+
+
+  const btn =
+    document.getElementById(
+      'saveUpdateBtn'
+    );
+
+
+  btn.disabled =
+    true;
+
+
+  loading(true);
+
+
+  try{
+
+    let photoUrl = '';
+
+
+    /* FOTO */
+
+    if(file){
+
+      const base64 =
+        await fileToBase64(
+          file
+        );
+
+
+      const upload =
+        await apiPost(
+          'uploadPhoto',
+          {
+
+            awb:
+              awb,
+
+            kendala:
+              kendala ||
+              'UPDATE',
+
+            base64:
+              base64,
+
+            mimeType:
+              file.type
+
+          }
+        );
+
+
+      if(!upload.success){
+
+        throw new Error(
+          upload.error ||
+          'Upload foto gagal'
+        );
+
+      }
+
+
+      photoUrl =
+        upload.url ||
+        '';
+
+    }
+
+
+    /* MONITORING */
+
+    const result =
+      await apiPost(
+        'saveMonitoring',
+        {
+
+          awb:
+            awb,
+
+          jamUpdate:
+            jam
+              ? new Date(jam)
+                  .toISOString()
+              : new Date()
+                  .toISOString(),
+
+          kendala:
+            kendala,
+
+          keterangan:
+            keterangan,
+
+          foto:
+            photoUrl
+
+        }
+      );
+
+
+    if(!result.success){
+
+      throw new Error(
+        result.error ||
+        'Gagal menyimpan monitoring'
+      );
+
+    }
+
+
+    toast(
+      'Monitoring berhasil disimpan'
+    );
+
+
+    document
+      .getElementById(
+        'keterangan'
+      )
+      .value =
+        '';
+
+
+    document
+      .getElementById(
+        'photoInput'
+      )
+      .value =
+        '';
+
+
+    document
+      .getElementById(
+        'photoPreview'
+      )
+      .classList
+      .add(
+        'hidden'
+      );
+
+
+    loadUpdateTrip();
+
+  }catch(err){
+
+    toast(
+      err.message
+    );
+
+  }finally{
+
+    btn.disabled =
+      false;
+
+    loading(false);
+
+  }
+
+}
+
+
+/* =========================================================
+   FILE TO BASE64
+========================================================= */
+
+function fileToBase64(
+  file
+){
+
+  return new Promise(
+    function(resolve,reject){
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function(){
+
+          resolve(
+            reader.result
+          );
+
+        };
+
+
+      reader.onerror =
+        reject;
+
+
+      reader.readAsDataURL(
+        file
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   REPORT
+========================================================= */
+
+async function loadReport(){
+
+  try{
+
+    const result =
+      await apiGet(
+        'getReport'
+      );
+
+
+    if(!result.success){
+
+      throw new Error(
+        result.error
+      );
+
+    }
+
+
+    const r =
+      result.report || {};
+
+
+    renderMap(
+      'reportProjects',
+      r.projects
+    );
+
+
+    renderMap(
+      'reportPerformance',
+      r.performance
+    );
+
+
+    renderMap(
+      'reportType',
+      r.typeTrip
+    );
+
+
+    renderMap(
+      'reportStatus',
+      r.tripStatus
+    );
+
+  }catch(err){
+
+    toast(
+      err.message
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   RENDER MAP
+========================================================= */
+
+function renderMap(
+  elementId,
+  map
+){
+
+  const el =
+    document.getElementById(
+      elementId
+    );
+
+
+  if(!map){
+
+    el.innerHTML =
+      '-';
+
+    return;
+
+  }
+
+
+  const entries =
+    Object.entries(
+      map
+    );
+
+
+  if(!entries.length){
+
+    el.innerHTML =
+      '<span style="color:#64748b">Tidak ada data.</span>';
+
+    return;
+
+  }
+
+
+  let html = '';
+
+
+  entries
+    .sort(
+      function(a,b){
+        return b[1] - a[1];
+      }
+    )
+    .forEach(
+      function(item){
+
+        html +=
+          '<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #e2e8f0">' +
+
+          '<span style="font-size:12px">' +
+          esc(item[0]) +
+          '</span>' +
+
+          '<b>' +
+          number(item[1]) +
+          '</b>' +
+
+          '</div>';
+
+      }
+    );
+
+
+  el.innerHTML =
+    html;
+
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function info(
+  label,
+  value
+){
+
+  return (
+    '<div class="info-item">' +
+
+      '<div class="info-label">' +
+        esc(label) +
+      '</div>' +
+
+      '<div class="info-value">' +
+        esc(value || '-') +
+      '</div>' +
+
+    '</div>'
+  );
+
+}
+
+
+function statusBadge(
+  status
+){
+
+  if(!status)
+    return '';
+
+
+  let cls =
+    'badge-gray';
+
+
+  if(status === 'ON TRIP')
+    cls = 'badge-blue';
+
+  if(status === 'DELIVERED')
+    cls = 'badge-green';
+
+  if(status === 'DELAY')
+    cls = 'badge-red';
+
+
+  return (
+    '<span class="badge ' +
+    cls +
+    '">' +
+    esc(status) +
+    '</span>'
+  );
+
+}
+
+
+function performanceBadge(
+  performance
+){
+
+  if(!performance)
+    return '';
+
+
+  const normalized =
+    String(
+      performance
+    ).toUpperCase();
+
+
+  let cls =
+    'badge-gray';
+
+
+  if(
+    normalized ===
+    'ON TIME'
+  )
+    cls =
+      'badge-green';
+
+
+  if(
+    normalized ===
+    'LATE'
+  )
+    cls =
+      'badge-red';
+
+
+  return (
+    '<span class="badge ' +
+    cls +
+    '">' +
+    esc(performance) +
+    '</span>'
+  );
+
+}
+
+
+function getField(
+  obj,
+  names
+){
+
+  if(!obj)
+    return '';
+
+
+  const keys =
+    Object.keys(
+      obj
+    );
+
+
+  for(
+    let i=0;
+    i<names.length;
+    i++
+  ){
+
+    const target =
+      normalizeKey(
+        names[i]
+      );
+
+
+    const key =
+      keys.find(
+        function(k){
+
+          return (
+            normalizeKey(k) ===
+            target
+          );
+
+        }
+      );
+
+
+    if(key !== undefined)
+      return obj[key];
+
+  }
+
+
+  return '';
+
+}
+
+
+function normalizeKey(
+  value
+){
+
+  return String(
+    value == null
+      ? ''
+      : value
+  )
+    .toLowerCase()
+    .replace(
+      /<br\s*\/?>/gi,
+      ' '
+    )
+    .replace(
+      /[_()-]/g,
+      ' '
+    )
+    .replace(
+      /\s+/g,
+      ' '
+    )
+    .trim();
+
+}
+
+
+function number(
+  value
+){
+
+  const n =
+    Number(
+      value || 0
+    );
+
+
+  return n.toLocaleString(
+    'id-ID'
+  );
+
+}
+
+
+function esc(
+  value
+){
+
+  return String(
+    value == null
+      ? ''
+      : value
+  )
+  .replace(
+    /&/g,
+    '&amp;'
+  )
+  .replace(
+    /</g,
+    '&lt;'
+  )
+  .replace(
+    />/g,
+    '&gt;'
+  )
+  .replace(
+    /"/g,
+    '&quot;'
+  )
+  .replace(
+    /'/g,
+    '&#039;'
+  );
+
+}
+
+
+function escAttr(
+  value
+){
+
+  return esc(
+    value
+  );
+
+}
+
+
+function jsQuote(
+  value
+){
+
+  return String(
+    value || ''
+  )
+  .replace(
+    /\\/g,
+    '\\\\'
+  )
+  .replace(
+    /'/g,
+    "\\'"
+  );
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer = null;
+
+function toast(
+  message
+){
+
+  const el =
+    document.getElementById(
+      'toast'
+    );
+
+
+  el.textContent =
+    message ||
+    'Selesai';
+
+
+  el.classList.add(
+    'show'
+  );
+
+
+  clearTimeout(
+    toastTimer
+  );
+
+
+  toastTimer =
+    setTimeout(
+      function(){
+
+        el.classList.remove(
+          'show'
+        );
+
+      },
+      3000
+    );
+
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+function loading(
+  show
+){
+
+  document
+    .getElementById(
+      'loading'
+    )
+    .style.display =
+      show
+        ? 'flex'
+        : 'none';
+
+}
+
+</script>
 
 </body>
 </html>
+```
